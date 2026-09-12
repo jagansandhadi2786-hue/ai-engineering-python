@@ -1,0 +1,27 @@
+| #  | SQL Topic            | Practice                  |
+| -- | -------------------- | ------------------------- |
+| 1  | Database connection  | Connect to SQLite         |
+| 2  | CREATE TABLE         | Create customers          |
+| 3  | INSERT               | Add records               |
+| 4  | SELECT               | Read records              |
+| 5  | WHERE                | Filter records            |
+| 6  | Comparison operators | `=`, `>`, `<`, `>=`, `<=` |
+| 7  | AND / OR             | Multiple conditions       |
+| 8  | ORDER BY             | Sort results              |
+| 9  | LIMIT                | Restrict results          |
+| 10 | UPDATE               | Modify records            |
+| 11 | DELETE               | Delete records            |
+| 12 | COUNT                | Count records             |
+| 13 | SUM                  | Calculate totals          |
+| 14 | AVG                  | Calculate averages        |
+| 15 | MIN / MAX            | Find minimum/maximum      |
+| 16 | LIKE                 | Search text               |
+| 17 | IN                   | Match multiple values     |
+| 18 | BETWEEN              | Search a range            |
+| 19 | DISTINCT             | Remove duplicates         |
+| 20 | GROUP BY             | Group data                |
+| 21 | HAVING               | Filter groups             |
+| 22 | INNER JOIN           | Combine tables            |
+| 23 | LEFT JOIN            | Keep unmatched records    |
+| 24 | Python + SQL         | Execute SQL from Python   |
+| 25 | Mini project         | Customer Order Database   |

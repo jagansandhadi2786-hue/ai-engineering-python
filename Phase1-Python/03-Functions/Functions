@@ -1,0 +1,401 @@
+# ============================================================
+# PYTHON FUNDAMENTALS - 05 FUNCTIONS
+# ============================================================
+# Topics:
+# - Creating functions
+# - Calling functions
+# - Parameters
+# - Arguments
+# - Return values
+# - Default parameters
+# - Keyword arguments
+# - Multiple return values
+# - Lists with functions
+# - Dictionaries with functions
+# - AI/JSON-style functions
+# - Mini project
+# ============================================================
+
+
+# ============================================================
+# EXERCISE 01 - Simple Function
+# ============================================================
+
+def say_hello():
+    print("Hello, welcome to Python!")
+
+
+say_hello()
+
+
+# ============================================================
+# EXERCISE 02 - Function with Name
+# ============================================================
+
+def greet():
+    print("Hello Jagan")
+
+
+greet()
+
+
+# ============================================================
+# EXERCISE 03 - Call Function Multiple Times
+# ============================================================
+
+def welcome():
+    print("Welcome to AI Engineering")
+
+
+welcome()
+welcome()
+welcome()
+
+
+# ============================================================
+# EXERCISE 04 - Function Parameter
+# ============================================================
+
+def greet_user(name):
+    print("Hello", name)
+
+
+greet_user("Jagan")
+greet_user("Rahul")
+greet_user("Priya")
+
+
+# ============================================================
+# EXERCISE 05 - Two Parameters
+# ============================================================
+
+def introduce(name, role):
+    print("Name:", name)
+    print("Role:", role)
+
+
+introduce("Jagan", "AI Engineer")
+
+
+# ============================================================
+# EXERCISE 06 - Add Two Numbers
+# ============================================================
+
+def add(a, b):
+    print(a + b)
+
+
+add(10, 20)
+
+
+# ============================================================
+# EXERCISE 07 - Return Value
+# ============================================================
+
+def add_numbers(a, b):
+    return a + b
+
+
+result = add_numbers(10, 20)
+
+print("Result:", result)
+
+
+# ============================================================
+# EXERCISE 08 - Multiply
+# ============================================================
+
+def multiply(a, b):
+    return a * b
+
+
+result = multiply(5, 4)
+
+print("Multiplication:", result)
+
+
+# ============================================================
+# EXERCISE 09 - User Input
+# ============================================================
+
+def greet_person(name):
+    return "Hello " + name
+
+
+name = input("Enter your name: ")
+
+message = greet_person(name)
+
+print(message)
+
+
+# ============================================================
+# EXERCISE 10 - Calculate Age
+# ============================================================
+
+def calculate_age(birth_year):
+    current_year = 2026
+    return current_year - birth_year
+
+
+birth_year = int(input("Enter your birth year: "))
+
+age = calculate_age(birth_year)
+
+print("Your age is:", age)
+
+
+# ============================================================
+# EXERCISE 11 - Even Number
+# ============================================================
+
+def is_even(number):
+    return number % 2 == 0
+
+
+print("10 is even:", is_even(10))
+print("7 is even:", is_even(7))
+
+
+# ============================================================
+# EXERCISE 12 - Positive Number
+# ============================================================
+
+def is_positive(number):
+    return number > 0
+
+
+print("10 is positive:", is_positive(10))
+print("-5 is positive:", is_positive(-5))
+
+
+# ============================================================
+# EXERCISE 13 - Find Maximum
+# ============================================================
+
+def find_max(a, b):
+
+    if a > b:
+        return a
+    else:
+        return b
+
+
+print("Maximum:", find_max(10, 20))
+
+
+# ============================================================
+# EXERCISE 14 - Rectangle Area
+# ============================================================
+
+def rectangle_area(length, width):
+    return length * width
+
+
+area = rectangle_area(10, 5)
+
+print("Rectangle Area:", area)
+
+
+# ============================================================
+# EXERCISE 15 - Default Parameter
+# ============================================================
+
+def default_greeting(name="User"):
+    print("Hello", name)
+
+
+default_greeting("Jagan")
+default_greeting()
+
+
+# ============================================================
+# EXERCISE 16 - Employee Details
+# ============================================================
+
+def employee_details(name, role, experience):
+
+    print("Name:", name)
+    print("Role:", role)
+    print("Experience:", experience, "years")
+
+
+employee_details(
+    "Jagan",
+    "SAP CPI Developer",
+    6
+)
+
+
+# ============================================================
+# EXERCISE 17 - Keyword Arguments
+# ============================================================
+
+def employee(name, role, experience):
+
+    print("Name:", name)
+    print("Role:", role)
+    print("Experience:", experience)
+
+
+employee(
+    name="Jagan",
+    role="AI Engineer",
+    experience=1
+)
+
+
+# ============================================================
+# EXERCISE 18 - Calculate Salary
+# ============================================================
+
+def calculate_salary(monthly_salary):
+
+    annual_salary = monthly_salary * 12
+
+    return annual_salary
+
+
+salary = calculate_salary(100000)
+
+print("Annual Salary:", salary)
+
+
+# ============================================================
+# EXERCISE 19 - Temperature Conversion
+# ============================================================
+
+def celsius_to_fahrenheit(celsius):
+
+    return (celsius * 9 / 5) + 32
+
+
+temperature = celsius_to_fahrenheit(30)
+
+print("Fahrenheit:", temperature)
+
+
+# ============================================================
+# EXERCISE 20 - Multiple Return Values
+# ============================================================
+
+def calculate(a, b):
+
+    addition = a + b
+    subtraction = a - b
+    multiplication = a * b
+
+    return addition, subtraction, multiplication
+
+
+addition, subtraction, multiplication = calculate(10, 5)
+
+print("Addition:", addition)
+print("Subtraction:", subtraction)
+print("Multiplication:", multiplication)
+
+
+# ============================================================
+# EXERCISE 21 - Function with List
+# ============================================================
+
+def print_names(names):
+
+    for name in names:
+        print(name)
+
+
+names = ["Jagan", "Rahul", "Priya"]
+
+print_names(names)
+
+
+# ============================================================
+# EXERCISE 22 - Calculate List Total
+# ============================================================
+
+def calculate_total(numbers):
+
+    total = 0
+
+    for number in numbers:
+        total = total + number
+
+    return total
+
+
+numbers = [10, 20, 30, 40]
+
+result = calculate_total(numbers)
+
+print("List Total:", result)
+
+
+# ============================================================
+# EXERCISE 23 - Function with Dictionary
+# ============================================================
+
+def display_customer(customer):
+
+    print("Customer ID:", customer["id"])
+    print("Name:", customer["name"])
+    print("City:", customer["city"])
+
+
+customer = {
+    "id": 101,
+    "name": "Jagan",
+    "city": "Hyderabad"
+}
+
+display_customer(customer)
+
+
+# ============================================================
+# EXERCISE 24 - AI Model Configuration
+# ============================================================
+
+def display_model_config(config):
+
+    print("Model:", config["model"])
+    print("Temperature:", config["temperature"])
+    print("Max Tokens:", config["max_tokens"])
+
+
+model_config = {
+    "model": "gpt-model",
+    "temperature": 0.7,
+    "max_tokens": 1000
+}
+
+display_model_config(model_config)
+
+
+# ============================================================
+# EXERCISE 25 - MINI PROJECT
+# Customer Order Processor
+# ============================================================
+
+def process_order(order):
+
+    total = order["amount"] * order["quantity"]
+
+    print("Order ID:", order["orderId"])
+    print("Customer ID:", order["customerId"])
+    print("Amount:", order["amount"])
+    print("Quantity:", order["quantity"])
+    print("Total:", total)
+
+
+order = {
+    "orderId": "ORD1001",
+    "customerId": "C101",
+    "amount": 500,
+    "quantity": 3
+}
+
+process_order(order)
+
+# ============================================================
+# END OF FUNCTIONS PRACTICE
+# ============================================================

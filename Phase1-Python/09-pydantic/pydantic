@@ -1,0 +1,901 @@
+# ============================================================
+# PYTHON FUNDAMENTALS - PYDANTIC
+# ============================================================
+# Hands-on Pydantic Practice
+#
+# Topics:
+# 01. BaseModel
+# 02. Basic validation
+# 03. Invalid data
+# 04. Required fields
+# 05. Default values
+# 06. Optional fields
+# 07. Lists
+# 08. List validation
+# 09. Nested models
+# 10. Nested orders
+# 11. Dictionaries
+# 12. Strict types
+# 13. Field constraints
+# 14. String constraints
+# 15. Numeric constraints
+# 16. Email validation
+# 17. JSON -> Pydantic
+# 18. Pydantic -> Dictionary
+# 19. Pydantic -> JSON
+# 20. Custom validation
+# 21. Order amount validation
+# 22. Order type validation
+# 23. AI model configuration
+# 24. API request model
+# 25. Final mini-project
+# ============================================================
+
+
+from typing import Optional, Literal
+
+from pydantic import (
+    BaseModel,
+    EmailStr,
+    Field,
+    StrictInt,
+    ValidationError,
+    field_validator,
+)
+
+
+# ============================================================
+# EXERCISE 01 - BASIC PYDANTIC MODEL
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 01 - BASIC PYDANTIC MODEL")
+print("=" * 60)
+
+
+class User(BaseModel):
+    name: str
+    age: int
+    email: str
+
+
+user = User(
+    name="Jagan",
+    age=30,
+    email="jagan@example.com",
+)
+
+print(user)
+print("Name:", user.name)
+print("Age:", user.age)
+print("Email:", user.email)
+
+
+# ============================================================
+# EXERCISE 02 - TYPE CONVERSION
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 02 - TYPE CONVERSION")
+print("=" * 60)
+
+
+user = User(
+    name="Jagan",
+    age=30,
+    email="jagan@example.com",
+)
+
+print(user)
+print("Age:", user.age)
+print("Age type:", type(user.age))
+
+
+# ============================================================
+# EXERCISE 03 - INVALID DATA
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 03 - INVALID DATA")
+print("=" * 60)
+
+
+try:
+
+    user = User(
+        name="Jagan",
+        age=abc, # type: ignore
+        email="jagan@example.com",
+    )
+
+    print(user)
+
+except ValidationError as error:
+
+    print("Validation Error:")
+    print(error)
+
+
+# ============================================================
+# EXERCISE 04 - REQUIRED FIELDS
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 04 - REQUIRED FIELDS")
+print("=" * 60)
+
+
+class Product(BaseModel):
+    name: str
+    price: float
+    quantity: int
+
+
+try:
+
+    product = Product(
+        name="Laptop",
+        price=75000,
+        quantity=1,
+    )
+
+    print(product)
+
+except ValidationError as error:
+
+    print(error)
+
+
+# ============================================================
+# EXERCISE 05 - DEFAULT VALUES
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 05 - DEFAULT VALUES")
+print("=" * 60)
+
+
+class ProductWithDefault(BaseModel):
+    name: str
+    price: float
+    quantity: int = 1
+
+
+product = ProductWithDefault(
+    name="Laptop",
+    price=75000,
+)
+
+print(product)
+print("Quantity:", product.quantity)
+
+
+# ============================================================
+# EXERCISE 06 - OPTIONAL FIELDS
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 06 - OPTIONAL FIELDS")
+print("=" * 60)
+
+
+class Customer(BaseModel):
+    name: str
+    email: str
+    phone: Optional[str] = None
+
+
+customer = Customer(
+    name="Jagan",
+    email="jagan@example.com",
+)
+
+print(customer)
+print("Phone:", customer.phone)
+
+
+# ============================================================
+# EXERCISE 07 - LISTS
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 07 - LISTS")
+print("=" * 60)
+
+
+class Order(BaseModel):
+    order_id: str
+    products: list[str]
+
+
+order = Order(
+    order_id="ORD001",
+    products=[
+        "Laptop",
+        "Mouse",
+        "Keyboard",
+    ],
+)
+
+print(order)
+print("Products:", order.products)
+
+
+# ============================================================
+# EXERCISE 08 - LIST OF NUMBERS
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 08 - LIST OF NUMBERS")
+print("=" * 60)
+
+
+class QuantityOrder(BaseModel):
+    order_id: str
+    quantities: list[int]
+
+
+order = QuantityOrder(
+    order_id="ORD001",
+    quantities=[1, 2, 3],
+)
+
+print(order)
+print("Quantities:", order.quantities)
+
+
+# ============================================================
+# EXERCISE 09 - NESTED MODELS
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 09 - NESTED MODELS")
+print("=" * 60)
+
+
+class Address(BaseModel):
+    city: str
+    country: str
+
+
+class CustomerWithAddress(BaseModel):
+    name: str
+    address: Address
+
+
+customer = CustomerWithAddress(
+    name="Jagan",
+    address = Address(
+    city="Hyderabad",
+    country="India"
+    )
+)
+
+user = User(
+    name="Jagan",
+    address=Address # type: ignore
+) # type: ignore
+
+print(customer)
+print("City:", customer.address.city)
+print("Country:", customer.address.country)
+
+
+# ============================================================
+# EXERCISE 10 - NESTED ORDER
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 10 - NESTED ORDER")
+print("=" * 60)
+
+
+class OrderCustomer(BaseModel):
+    name: str
+    email: str
+
+
+class CustomerOrder(BaseModel):
+    order_id: str
+    customer: OrderCustomer
+    amount: float
+
+
+order = CustomerOrder(
+    order_id="ORD1001",
+    customer={
+        "name": "Jagan",
+        "email": "jagan@example.com",
+    }, # pyright: ignore[reportArgumentType]
+    amount=500,
+)
+
+print(order)
+print("Order ID:", order.order_id)
+print("Customer:", order.customer.name)
+print("Amount:", order.amount)
+
+
+# ============================================================
+# EXERCISE 11 - DICTIONARY
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 11 - DICTIONARY")
+print("=" * 60)
+
+
+class Configuration(BaseModel):
+    model: str
+    parameters: dict
+
+
+config = Configuration(
+    model="AI-Model",
+    parameters={
+        "temperature": 0.7,
+        "max_tokens": 500,
+    },
+)
+
+print(config)
+print("Model:", config.model)
+print("Parameters:", config.parameters)
+
+
+# ============================================================
+# EXERCISE 12 - STRICT TYPES
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 12 - STRICT TYPES")
+print("=" * 60)
+
+
+class StrictProduct(BaseModel):
+    quantity: StrictInt
+
+
+product = StrictProduct(quantity=10)
+
+print(product)
+
+try:
+
+    product = StrictProduct(quantity=10)
+
+    print(product)
+
+except ValidationError as error:
+
+    print("Strict validation error:")
+    print(error)
+
+
+# ============================================================
+# EXERCISE 13 - FIELD CONSTRAINT
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 13 - FIELD CONSTRAINT")
+print("=" * 60)
+
+
+class PositiveProduct(BaseModel):
+    name: str
+    price: float = Field(gt=0)
+
+
+product = PositiveProduct(
+    name="Laptop",
+    price=50000,
+)
+
+print(product)
+
+try:
+
+    product = PositiveProduct(
+        name="Laptop",
+        price=-100,
+    )
+
+except ValidationError as error:
+
+    print("Validation error:")
+    print(error)
+
+
+# ============================================================
+# EXERCISE 14 - STRING LENGTH
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 14 - STRING LENGTH")
+print("=" * 60)
+
+
+class Username(BaseModel):
+    username: str = Field(
+        min_length=3,
+        max_length=20,
+    )
+
+
+valid_username = Username(
+    username="Jagan",
+)
+
+print(valid_username)
+
+try:
+
+    invalid_username = Username(
+        username="AB",
+    )
+
+except ValidationError as error:
+
+    print("Validation error:")
+    print(error)
+
+
+# ============================================================
+# EXERCISE 15 - NUMERIC CONSTRAINTS
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 15 - NUMERIC CONSTRAINTS")
+print("=" * 60)
+
+
+class LimitedProduct(BaseModel):
+    name: str
+    price: float = Field(
+        gt=0,
+        le=100000,
+    )
+
+
+product = LimitedProduct(
+    name="Laptop",
+    price=75000,
+)
+
+print(product)
+
+try:
+
+    product = LimitedProduct(
+        name="Laptop",
+        price=150000,
+    )
+
+except ValidationError as error:
+
+    print("Validation error:")
+    print(error)
+
+
+# ============================================================
+# EXERCISE 16 - EMAIL VALIDATION
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 16 - EMAIL VALIDATION")
+print("=" * 60)
+
+
+class EmailUser(BaseModel):
+    name: str
+    email: EmailStr
+
+
+user = EmailUser(
+    name="Jagan",
+    email="jagan@example.com",
+)
+
+print(user)
+print("Email:", user.email)
+
+
+try:
+
+    invalid_user = EmailUser(
+        name="Jagan",
+        email="invalid-email",
+    )
+
+except ValidationError as error:
+
+    print("Email validation error:")
+    print(error)
+
+
+# ============================================================
+# EXERCISE 17 - JSON -> PYDANTIC
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 17 - JSON -> PYDANTIC")
+print("=" * 60)
+
+
+json_data = """
+{
+    "name": "Jagan",
+    "age": 30,
+    "email": "jagan@example.com"
+}
+"""
+
+
+class JsonUser(BaseModel):
+    name: str
+    age: int
+    email: EmailStr
+
+
+user = JsonUser.model_validate_json(json_data)
+
+print(user)
+print("Name:", user.name)
+print("Age:", user.age)
+print("Email:", user.email)
+
+
+# ============================================================
+# EXERCISE 18 - PYDANTIC -> DICTIONARY
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 18 - PYDANTIC -> DICTIONARY")
+print("=" * 60)
+
+
+user = JsonUser(
+    name="Jagan",
+    age=30,
+    email="jagan@example.com",
+)
+
+data = user.model_dump()
+
+print(data)
+print(type(data))
+
+
+# ============================================================
+# EXERCISE 19 - PYDANTIC -> JSON
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 19 - PYDANTIC -> JSON")
+print("=" * 60)
+
+
+json_output = user.model_dump_json()
+
+print(json_output)
+print(type(json_output))
+
+
+# ============================================================
+# EXERCISE 20 - CUSTOM VALIDATION
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 20 - CUSTOM VALIDATION")
+print("=" * 60)
+
+
+class ValidatedUser(BaseModel):
+    username: str
+
+    @field_validator("username")
+    @classmethod
+    def validate_username(cls, value):
+
+        if " " in value:
+
+            raise ValueError(
+                "Username cannot contain spaces"
+            )
+
+        return value
+
+
+valid_user = ValidatedUser(
+    username="Jagan",
+)
+
+print(valid_user)
+
+
+try:
+
+    invalid_user = ValidatedUser(
+        username="Jagan Reddy",
+    )
+
+except ValidationError as error:
+
+    print("Custom validation error:")
+    print(error)
+
+
+# ============================================================
+# EXERCISE 21 - ORDER AMOUNT VALIDATION
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 21 - ORDER AMOUNT VALIDATION")
+print("=" * 60)
+
+
+class ValidatedOrder(BaseModel):
+    order_id: str
+    customer_id: str
+    amount: float = Field(gt=0)
+
+
+order = ValidatedOrder(
+    order_id="ORD1001",
+    customer_id="C101",
+    amount=500,
+)
+
+print(order)
+
+
+try:
+
+    invalid_order = ValidatedOrder(
+        order_id="ORD1002",
+        customer_id="C102",
+        amount=0,
+    )
+
+except ValidationError as error:
+
+    print("Order validation error:")
+    print(error)
+
+
+# ============================================================
+# EXERCISE 22 - ORDER TYPE VALIDATION
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 22 - ORDER TYPE VALIDATION")
+print("=" * 60)
+
+
+class OrderTypeModel(BaseModel):
+    order_id: str
+    order_type: Literal["B2B", "B2C"]
+
+
+b2b_order = OrderTypeModel(
+    order_id="ORD1001",
+    order_type="B2B",
+)
+
+print(b2b_order)
+
+
+try:
+
+    invalid_order = OrderTypeModel(
+        order_id="ORD1002",
+        order_type=B2G, # pyright: ignore[reportUndefinedVariable]
+    )
+
+except ValidationError as error:
+
+    print("Order type validation error:")
+    print(error)
+
+
+# ============================================================
+# EXERCISE 23 - AI MODEL CONFIGURATION
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 23 - AI MODEL CONFIGURATION")
+print("=" * 60)
+
+
+class AIModelConfig(BaseModel):
+
+    model: str
+
+    temperature: float = Field(
+        ge=0,
+        le=2,
+    )
+
+    max_tokens: int = Field(
+        gt=0,
+    )
+
+
+ai_config = AIModelConfig(
+    model="AI-Model",
+    temperature=0.7,
+    max_tokens=500,
+)
+
+print(ai_config)
+
+try:
+
+    invalid_config = AIModelConfig(
+        model="AI-Model",
+        temperature=3,
+        max_tokens=500,
+    )
+
+except ValidationError as error:
+
+    print("AI configuration validation error:")
+    print(error)
+
+
+# ============================================================
+# EXERCISE 24 - API REQUEST MODEL
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 24 - API REQUEST MODEL")
+print("=" * 60)
+
+
+class CustomerRequest(BaseModel):
+
+    customer_id: str
+
+    name: str
+
+    email: EmailStr
+
+    age: int = Field(
+        gt=0,
+    )
+
+
+customer_request = CustomerRequest(
+    customer_id="C101",
+    name="Jagan",
+    email="jagan@example.com",
+    age=30,
+)
+
+print(customer_request)
+
+print("\nAPI Request as dictionary:")
+
+print(customer_request.model_dump())
+
+print("\nAPI Request as JSON:")
+
+print(customer_request.model_dump_json())
+
+
+# ============================================================
+# EXERCISE 25 - FINAL MINI PROJECT
+# ============================================================
+
+print("\n" + "=" * 60)
+print("EXERCISE 25 - FINAL MINI PROJECT")
+print("=" * 60)
+
+
+class MiniProjectCustomer(BaseModel):
+
+    customer_id: str
+
+    name: str
+
+    email: EmailStr
+
+
+class MiniProjectOrder(BaseModel):
+
+    order_id: str
+
+    customer: MiniProjectCustomer
+
+    order_type: Literal["B2B", "B2C"]
+
+    amount: float = Field(
+        gt=0,
+    )
+
+    items: list[str]
+
+
+order_data = {
+    "order_id": "ORD1001",
+
+    "customer": {
+        "customer_id": "C101",
+        "name": "Jagan",
+        "email": "jagan@example.com",
+    },
+
+    "order_type": "B2B",
+
+    "amount": 500,
+
+    "items": [
+        "Laptop",
+        "Mouse",
+    ],
+}
+
+
+try:
+
+    order = MiniProjectOrder.model_validate(
+        order_data
+    )
+
+    print("\nVALID ORDER")
+
+    print("\nComplete object:")
+
+    print(order)
+
+    print("\nOrder ID:")
+
+    print(order.order_id)
+
+    print("\nCustomer ID:")
+
+    print(order.customer.customer_id)
+
+    print("\nCustomer Name:")
+
+    print(order.customer.name)
+
+    print("\nCustomer Email:")
+
+    print(order.customer.email)
+
+    print("\nOrder Type:")
+
+    print(order.order_type)
+
+    print("\nAmount:")
+
+    print(order.amount)
+
+    print("\nItems:")
+
+    print(order.items)
+
+    print("\nDictionary:")
+
+    print(order.model_dump())
+
+    print("\nJSON:")
+
+    print(order.model_dump_json(indent=2))
+
+
+except ValidationError as error:
+
+    print("\nORDER VALIDATION FAILED")
+
+    print(error)
+
+
+# ============================================================
+# END
+# ============================================================
+
+print("\n" + "=" * 60)
+print("PYDANTIC PRACTICE COMPLETED")
+print("=" * 60)

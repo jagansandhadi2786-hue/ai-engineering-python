@@ -1,0 +1,964 @@
+```python
+# ============================================================
+# PYTHON FUNDAMENTALS - REST APIs
+# ============================================================
+# File: 13_rest_apis.py
+#
+# Hands-on Practice:
+# 25 REST API Exercises in ONE FILE
+#
+# Requirements:
+#     pip install requests
+#
+# Practice API:
+#     https://jsonplaceholder.typicode.com
+#
+# ============================================================
+#
+# IMPORTANT HTTP METHODS
+#
+# GET     -> Read data
+# POST    -> Create data
+# PUT     -> Update/replace data
+# PATCH   -> Partially update data
+# DELETE  -> Delete data
+#
+# IMPORTANT requests METHODS
+#
+# requests.get()
+# requests.post()
+# requests.put()
+# requests.patch()
+# requests.delete()
+#
+# IMPORTANT RESPONSE
+#
+# response.status_code
+# response.text
+# response.json()
+# response.raise_for_status()
+#
+# ============================================================
+
+
+import requests
+import json
+
+
+# ============================================================
+# EXERCISE 01 - Import Requests
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 01 - IMPORT REQUESTS")
+print("=" * 60)
+
+print("Requests library imported successfully")
+
+
+# ============================================================
+# EXERCISE 02 - GET Request
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 02 - GET REQUEST")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/users"
+
+response = requests.get(url)
+
+print("Response:", response)
+
+
+# ============================================================
+# EXERCISE 03 - Check Status Code
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 03 - STATUS CODE")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/users"
+
+response = requests.get(url)
+
+print("Status Code:", response.status_code)
+
+if response.status_code == 200:
+    print("Request successful")
+
+
+# ============================================================
+# EXERCISE 04 - Read Response Text
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 04 - RESPONSE TEXT")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/users"
+
+response = requests.get(url)
+
+print(response.text)
+
+
+# ============================================================
+# EXERCISE 05 - Convert Response to JSON
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 05 - RESPONSE JSON")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/users"
+
+response = requests.get(url)
+
+data = response.json()
+
+print(data)
+print("Python Type:", type(data))
+
+
+# ============================================================
+# EXERCISE 06 - Access JSON Fields
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 06 - ACCESS JSON FIELDS")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/users"
+
+response = requests.get(url)
+
+data = response.json()
+
+print("ID:", data[0]["id"])
+print("Name:", data[0]["name"])
+print("Username:", data[0]["username"])
+print("Email:", data[0]["email"])
+
+
+# ============================================================
+# EXERCISE 07 - GET Single Resource
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 07 - GET SINGLE USER")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/users/1"
+
+response = requests.get(url)
+
+data = response.json()
+
+print(data)
+
+print("Name:", data["name"])
+print("Email:", data["email"])
+print("Phone:", data["phone"])
+
+
+# ============================================================
+# EXERCISE 08 - GET with Query Parameters
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 08 - QUERY PARAMETERS")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/posts"
+
+params = {
+    "userId": 1
+}
+
+response = requests.get(
+    url,
+    params=params
+)
+
+print("Request URL:", response.url)
+print("Status:", response.status_code)
+
+data = response.json()
+
+print(data)
+
+
+# ============================================================
+# EXERCISE 09 - Multiple Query Parameters
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 09 - QUERY PARAMETERS")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/comments"
+
+params = {
+    "postId": 1
+}
+
+response = requests.get(
+    url,
+    params=params
+)
+
+print("Request URL:", response.url)
+
+data = response.json()
+
+print("Number of comments:", len(data))
+
+for comment in data:
+
+    print("--------------------")
+
+    print("Comment ID:", comment["id"])
+    print("Name:", comment["name"])
+    print("Email:", comment["email"])
+
+
+# ============================================================
+# EXERCISE 10 - POST Request
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 10 - POST REQUEST")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/posts"
+
+data = {
+    "title": "Python REST API",
+    "body": "Learning REST APIs",
+    "userId": 1
+}
+
+response = requests.post(
+    url,
+    json=data
+)
+
+print("Status Code:", response.status_code)
+
+print("Response:")
+
+print(response.json())
+
+
+# ============================================================
+# EXERCISE 11 - POST JSON Customer
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 11 - POST CUSTOMER")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/posts"
+
+customer = {
+    "customer_id": "C101",
+    "name": "Jagan",
+    "city": "Hyderabad",
+    "active": True
+}
+
+response = requests.post(
+    url,
+    json=customer
+)
+
+print("Status Code:", response.status_code)
+
+result = response.json()
+
+print("API Response:")
+print(
+    json.dumps(
+        result,
+        indent=4
+    )
+)
+
+
+# ============================================================
+# EXERCISE 12 - Read POST Response
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 12 - POST RESPONSE")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/posts"
+
+order = {
+    "order_id": "ORD1001",
+    "customer_id": "C101",
+    "amount": 50000
+}
+
+response = requests.post(
+    url,
+    json=order
+)
+
+print("Status Code:", response.status_code)
+
+result = response.json()
+
+print("Response:")
+print(result)
+
+print("Returned ID:", result["id"])
+
+print("Order ID:", result["order_id"])
+
+print("Customer ID:", result["customer_id"])
+
+
+# ============================================================
+# EXERCISE 13 - PUT Request
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 13 - PUT REQUEST")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/posts/1"
+
+data = {
+    "id": 1,
+    "title": "Updated Title",
+    "body": "Updated Body",
+    "userId": 1
+}
+
+response = requests.put(
+    url,
+    json=data
+)
+
+print("Status Code:", response.status_code)
+
+print("Response:")
+
+print(
+    json.dumps(
+        response.json(),
+        indent=4
+    )
+)
+
+
+# ============================================================
+# EXERCISE 14 - PATCH Request
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 14 - PATCH REQUEST")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/posts/1"
+
+data = {
+    "title": "New Python Title"
+}
+
+response = requests.patch(
+    url,
+    json=data
+)
+
+print("Status Code:", response.status_code)
+
+print("Response:")
+
+print(
+    json.dumps(
+        response.json(),
+        indent=4
+    )
+)
+
+
+# ============================================================
+# EXERCISE 15 - DELETE Request
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 15 - DELETE REQUEST")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/posts/1"
+
+response = requests.delete(url)
+
+print("Status Code:", response.status_code)
+
+print("Response Text:")
+
+print(response.text)
+
+
+# ============================================================
+# EXERCISE 16 - Handle HTTP Status Codes
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 16 - STATUS CODE HANDLING")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/users/1"
+
+response = requests.get(url)
+
+if response.status_code == 200:
+
+    print("200 - Request successful")
+
+elif response.status_code == 201:
+
+    print("201 - Resource created")
+
+elif response.status_code == 400:
+
+    print("400 - Bad request")
+
+elif response.status_code == 401:
+
+    print("401 - Unauthorized")
+
+elif response.status_code == 403:
+
+    print("403 - Forbidden")
+
+elif response.status_code == 404:
+
+    print("404 - Resource not found")
+
+elif response.status_code >= 500:
+
+    print("500+ - Server error")
+
+else:
+
+    print(
+        "Other status code:",
+        response.status_code
+    )
+
+
+# ============================================================
+# EXERCISE 17 - Request Headers
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 17 - REQUEST HEADERS")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/posts"
+
+headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+}
+
+response = requests.get(
+    url,
+    headers=headers
+)
+
+print("Status Code:", response.status_code)
+
+print("Response:")
+
+print(response.json())
+
+
+# ============================================================
+# EXERCISE 18 - API Timeout
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 18 - API TIMEOUT")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/users"
+
+response = requests.get(
+    url,
+    timeout=10
+)
+
+print("Status Code:", response.status_code)
+
+print("Request completed successfully")
+
+
+# ============================================================
+# EXERCISE 19 - Exception Handling
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 19 - EXCEPTION HANDLING")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/users"
+
+try:
+
+    response = requests.get(
+        url,
+        timeout=10
+    )
+
+    print("Status Code:",
+          response.status_code)
+
+except requests.exceptions.RequestException as error:
+
+    print("API request failed")
+
+    print("Error:", error)
+
+
+# ============================================================
+# EXERCISE 20 - Validate API Response
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 20 - RESPONSE VALIDATION")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/users"
+
+response = requests.get(
+    url,
+    timeout=10
+)
+
+if response.status_code == 200:
+
+    data = response.json()
+
+    if isinstance(data, list):
+
+        print("API returned a list")
+
+        print(
+            "Number of users:",
+            len(data)
+        )
+
+    else:
+
+        print("API did not return a list")
+
+else:
+
+    print("API request failed")
+
+    print(
+        "Status:",
+        response.status_code
+    )
+
+
+# ============================================================
+# EXERCISE 21 - Loop Through API Records
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 21 - LOOP THROUGH API DATA")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/users"
+
+response = requests.get(
+    url,
+    timeout=10
+)
+
+users = response.json()
+
+for user in users:
+
+    print("--------------------")
+
+    print("ID:", user["id"])
+
+    print("Name:", user["name"])
+
+    print("Username:",
+          user["username"])
+
+    print("Email:",
+          user["email"])
+
+
+# ============================================================
+# EXERCISE 22 - Search API Data
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 22 - SEARCH API DATA")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/users"
+
+response = requests.get(
+    url,
+    timeout=10
+)
+
+users = response.json()
+
+search_name = "Leanne Graham"
+
+found = False
+
+for user in users:
+
+    if user["name"] == search_name:
+
+        print("User Found")
+
+        print("ID:",
+              user["id"])
+
+        print("Name:",
+              user["name"])
+
+        print("Email:",
+              user["email"])
+
+        found = True
+
+
+if not found:
+
+    print("User not found")
+
+
+# ============================================================
+# EXERCISE 23 - Reusable API Function
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 23 - REUSABLE API FUNCTION")
+print("=" * 60)
+
+
+def get_users():
+
+    url = "https://jsonplaceholder.typicode.com/users"
+
+    response = requests.get(
+        url,
+        timeout=10
+    )
+
+    response.raise_for_status()
+
+    return response.json()
+
+
+try:
+
+    users = get_users()
+
+    print("Users retrieved:",
+          len(users))
+
+except requests.exceptions.RequestException as error:
+
+    print("API Error:", error)
+
+
+# ============================================================
+# EXERCISE 24 - REST API -> JSON -> Python
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 24 - API -> JSON -> PYTHON")
+print("=" * 60)
+
+url = "https://jsonplaceholder.typicode.com/users"
+
+response = requests.get(
+    url,
+    timeout=10
+)
+
+response.raise_for_status()
+
+users = response.json()
+
+print("Transformed Customer Data")
+
+print("=" * 60)
+
+
+for user in users:
+
+    customer = {
+
+        "customer_id": user["id"],
+
+        "name": user["name"],
+
+        "email": user["email"],
+
+        "city": user["address"]["city"]
+
+    }
+
+    print(
+        json.dumps(
+            customer,
+            indent=4
+        )
+    )
+
+
+# ============================================================
+# EXERCISE 25 - MINI PROJECT
+# CUSTOMER API INTEGRATION
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("EXERCISE 25 - CUSTOMER API MINI PROJECT")
+print("=" * 60)
+
+
+# ------------------------------------------------------------
+# STEP 1 - API URL
+# ------------------------------------------------------------
+
+url = "https://jsonplaceholder.typicode.com/users"
+
+
+try:
+
+    # --------------------------------------------------------
+    # STEP 2 - Call REST API
+    # --------------------------------------------------------
+
+    response = requests.get(
+        url,
+        timeout=10
+    )
+
+    response.raise_for_status()
+
+    print("API request successful")
+
+
+    # --------------------------------------------------------
+    # STEP 3 - Convert Response to Python
+    # --------------------------------------------------------
+
+    users = response.json()
+
+    print(
+        "Number of users:",
+        len(users)
+    )
+
+
+    # --------------------------------------------------------
+    # STEP 4 - Create Customer List
+    # --------------------------------------------------------
+
+    customers = []
+
+
+    for user in users:
+
+        customer = {
+
+            "customer_id": user["id"],
+
+            "name": user["name"],
+
+            "email": user["email"],
+
+            "city": user["address"]["city"],
+
+            "company": user["company"]["name"]
+
+        }
+
+        customers.append(customer)
+
+
+    # --------------------------------------------------------
+    # STEP 5 - Display Customers
+    # --------------------------------------------------------
+
+    print("\nCustomer Data")
+
+    print("=" * 60)
+
+
+    for customer in customers:
+
+        print(
+            json.dumps(
+                customer,
+                indent=4
+            )
+        )
+
+
+    # --------------------------------------------------------
+    # STEP 6 - Save API Data to JSON File
+    # --------------------------------------------------------
+
+    with open(
+        "customers_from_api.json",
+        "w"
+    ) as file:
+
+        json.dump(
+            customers,
+            file,
+            indent=4
+        )
+
+
+    print(
+        "\ncustomers_from_api.json "
+        "created successfully"
+    )
+
+
+    # --------------------------------------------------------
+    # STEP 7 - Read Saved JSON File
+    # --------------------------------------------------------
+
+    with open(
+        "customers_from_api.json",
+        "r"
+    ) as file:
+
+        saved_customers = json.load(file)
+
+
+    print(
+        "\nCustomers loaded from JSON file:",
+        len(saved_customers)
+    )
+
+
+    # --------------------------------------------------------
+    # STEP 8 - Search Customer
+    # --------------------------------------------------------
+
+    search_id = 3
+
+    for customer in saved_customers:
+
+        if customer["customer_id"] == search_id:
+
+            print("\nCustomer Found:")
+
+            print(
+                json.dumps(
+                    customer,
+                    indent=4
+                )
+            )
+
+
+except requests.exceptions.Timeout:
+
+    print("API request timed out")
+
+
+except requests.exceptions.RequestException as error:
+
+    print("API request failed")
+
+    print("Error:", error)
+
+
+except json.JSONDecodeError:
+
+    print("Invalid JSON response")
+
+
+# ============================================================
+# FINAL SUMMARY
+# ============================================================
+
+print("\n")
+print("=" * 60)
+print("REST API PRACTICE COMPLETED")
+print("=" * 60)
+
+print("""
+You practiced:
+
+01. Import requests
+02. GET request
+03. Status code
+04. Response text
+05. Response JSON
+06. Access JSON fields
+07. GET single resource
+08. Query parameters
+09. Multiple/query parameters
+10. POST request
+11. POST JSON data
+12. POST response
+13. PUT request
+14. PATCH request
+15. DELETE request
+16. HTTP status handling
+17. HTTP headers
+18. API timeout
+19. Exception handling
+20. Response validation
+21. Loop through API records
+22. Search API data
+23. Reusable API function
+24. API -> JSON -> Python
+25. Customer API mini project
+""")
+
+print("=" * 60)
+print("PYTHON -> REST API -> JSON PRACTICE COMPLETE")
+print("=" * 60)
+```

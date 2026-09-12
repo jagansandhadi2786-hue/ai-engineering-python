@@ -1,0 +1,706 @@
+# ============================================================
+# PYTHON FUNDAMENTALS - JSON
+# ============================================================
+# Topic:JSON - JavaScript Object Notation
+#
+# Hands-on Practice:25 Exercises in ONE FILE
+#
+# Important:
+# dumps() -> Python -> JSON string
+# loads() -> JSON string -> Python
+# dump()  -> Python -> JSON file
+# load()  -> JSON file -> Python
+# ============================================================
+
+
+#============================================================
+# EXERCISE 01 - Import JSON
+# ============================================================
+
+import json
+
+
+print("\n========== EXERCISE 01 ==========")
+print("JSON module imported successfully")
+
+# ============================================================
+# EXERCISE 02 - Create a Python Dictionary
+# ============================================================
+
+print("\n========== EXERCISE 02 ==========")
+
+customer = {
+    "customer_id": "C101",
+    "name": "Rahul",
+    "city": "Hyderabad",
+    "active": True
+}
+
+print(customer)
+
+
+# ============================================================
+# EXERCISE 03 - Convert Dictionary to JSON
+# ============================================================
+
+print("\n========== EXERCISE 03 ==========")
+
+json_data = json.dumps(customer)
+
+print(json_data)
+print(type(json_data))
+
+
+# ============================================================
+# EXERCISE 04 - Pretty JSON
+# ============================================================
+
+print("\n========== EXERCISE 04 ==========")
+
+customer = {
+    "customer_id": "C101",
+    "name": "Rahul",
+    "city": "Hyderabad",
+    "skills": [
+        "Python",
+        "API",
+        "SQL"
+    ]
+}
+
+json_data = json.dumps(customer, indent=4)
+
+print(json_data)
+
+
+# ============================================================
+# EXERCISE 05 - Python Dictionary -> JSON String
+# ============================================================
+
+print("\n========== EXERCISE 05 ==========")
+
+employee = {
+    "id": 1001,
+    "name": "Jagan",
+    "department": "IT",
+    "experience": 6,
+    "active": True
+}
+
+json_data = json.dumps(employee, indent=4)
+
+print(json_data)
+
+
+# ============================================================
+# EXERCISE 06 - JSON String -> Python Dictionary
+# ============================================================
+
+print("\n========== EXERCISE 06 ==========")
+
+json_data = '''
+{
+    "name": "Jagan",
+    "role": "AI Engineer",
+    "experience": 6
+}
+'''
+
+employee = json.loads(json_data)
+
+print(employee)
+print(type(employee))
+
+
+# ============================================================
+# EXERCISE 07 - Access JSON Data
+# ============================================================
+
+print("\n========== EXERCISE 07 ==========")
+
+json_data = '''
+{
+    "customer_id": "C101",
+    "name": "Rahul",
+    "city": "Hyderabad"
+}
+'''
+
+customer = json.loads(json_data)
+
+print("Customer ID:", customer["customer_id"])
+print("Name:", customer["name"])
+print("City:", customer["city"])
+
+
+# ============================================================
+# EXERCISE 08 - Update JSON Data
+# ============================================================
+
+print("\n========== EXERCISE 08 ==========")
+
+customer["city"] = "Bangalore"
+
+print(customer)
+
+
+# ============================================================
+# EXERCISE 09 - Add a New JSON Field
+# ============================================================
+
+print("\n========== EXERCISE 09 ==========")
+
+customer["email"] = "rahul@example.com"
+customer["phone"] = "9876543210"
+customer["country"] = "India"
+
+print(customer)
+
+
+# ============================================================
+# EXERCISE 10 - Delete a JSON Field
+# ============================================================
+
+print("\n========== EXERCISE 10 ==========")
+
+del customer["phone"]
+
+print(customer)
+
+
+# ============================================================
+# EXERCISE 11 - JSON List / Array
+# ============================================================
+
+print("\n========== EXERCISE 11 ==========")
+
+json_data = '''
+{
+    "name": "Jagan",
+    "skills": [
+        "Python",
+        "SAP CPI",
+        "Azure",
+        "AI"
+    ]
+}
+'''
+
+data = json.loads(json_data)
+
+print("Skills:", data["skills"])
+
+print("Skill 1:", data["skills"][0])
+print("Skill 2:", data["skills"][1])
+print("Skill 3:", data["skills"][2])
+print("Skill 4:", data["skills"][3])
+
+
+# ============================================================
+# EXERCISE 12 - Add Items to JSON Array
+# ============================================================
+
+print("\n========== EXERCISE 12 ==========")
+
+data["skills"].append("FastAPI")
+data["skills"].append("SQL")
+data["skills"].append("Git")
+data["skills"].append("Docker")
+
+print(data["skills"])
+
+
+# ============================================================
+# EXERCISE 13 - Nested JSON
+# ============================================================
+
+print("\n========== EXERCISE 13 ==========")
+
+json_data = '''
+{
+    "customer": {
+        "id": "C101",
+        "name": "Rahul",
+        "address": {
+            "city": "Hyderabad",
+            "country": "India"
+        }
+    }
+}
+'''
+
+data = json.loads(json_data)
+
+print("Customer Name:",
+      data["customer"]["name"])
+
+print("City:",
+      data["customer"]["address"]["city"])
+
+print("Country:",
+      data["customer"]["address"]["country"])
+
+
+# ============================================================
+# EXERCISE 14 - Nested JSON Update
+# ============================================================
+
+print("\n========== EXERCISE 14 ==========")
+
+data["customer"]["name"] = "Jagan"
+data["customer"]["address"]["city"] = "Bangalore"
+data["customer"]["address"]["country"] = "India"
+
+print(json.dumps(data, indent=4))
+
+
+# ============================================================
+# EXERCISE 15 - JSON Array of Objects
+# ============================================================
+
+print("\n========== EXERCISE 15 ==========")
+
+json_data = '''
+{
+    "customers": [
+        {
+            "id": "C101",
+            "name": "Rahul",
+            "city": "Hyderabad"
+        },
+        {
+            "id": "C102",
+            "name": "Priya",
+            "city": "Bangalore"
+        },
+        {
+            "id": "C103",
+            "name": "Arun",
+            "city": "Chennai"
+        }
+    ]
+}
+'''
+
+data = json.loads(json_data)
+
+print(data["customers"])
+
+print("First Customer:")
+print(data["customers"][0])
+
+
+# ============================================================
+# EXERCISE 16 - Loop Through JSON
+# ============================================================
+
+print("\n========== EXERCISE 16 ==========")
+
+for customer in data["customers"]:
+
+    print("--------------------")
+    print("ID:", customer["id"])
+    print("Name:", customer["name"])
+    print("City:", customer["city"])
+
+
+# ============================================================
+# EXERCISE 17 - Search JSON Data
+# ============================================================
+
+print("\n========== EXERCISE 17 ==========")
+
+search_id = "C102"
+
+for customer in data["customers"]:
+
+    if customer["id"] == search_id:
+
+        print("Customer Found:")
+        print(customer)
+
+
+# ============================================================
+# EXERCISE 18 - Convert Python List to JSON
+# ============================================================
+
+print("\n========== EXERCISE 18 ==========")
+
+skills = [
+    "Python",
+    "FastAPI",
+    "REST API",
+    "SQL",
+    "AI"
+]
+
+json_data = json.dumps(skills, indent=4)
+
+print(json_data)
+
+
+# ============================================================
+# EXERCISE 19 - Python Data Types -> JSON
+# ============================================================
+
+print("\n========== EXERCISE 19 ==========")
+
+data = {
+    "name": "Jagan",
+    "age": 30,
+    "experience": 6.5,
+    "active": True,
+    "manager": None,
+    "skills": [
+        "Python",
+        "AI"
+    ]
+}
+
+json_data = json.dumps(data, indent=4)
+
+print(json_data)
+
+
+# ============================================================
+# EXERCISE 20 - Write JSON to a File
+# ============================================================
+
+print("\n========== EXERCISE 20 ==========")
+
+customer = {
+    "customer_id": "C101",
+    "name": "Rahul",
+    "city": "Hyderabad",
+    "active": True
+}
+
+with open("customer.json", "w") as file:
+
+    json.dump(
+        customer,
+        file,
+        indent=4
+    )
+
+print("customer.json file created")
+
+
+# ============================================================
+# EXERCISE 21 - Read JSON from a File
+# ============================================================
+
+print("\n========== EXERCISE 21 ==========")
+
+with open("customer.json", "r") as file:
+
+    customer = json.load(file)
+
+print(customer)
+
+print("Customer ID:",
+      customer["customer_id"])
+
+print("Name:",
+      customer["name"])
+
+print("City:",
+      customer["city"])
+
+
+# ============================================================
+# EXERCISE 22 - Modify JSON File
+# ============================================================
+
+print("\n========== EXERCISE 22 ==========")
+
+with open("customer.json", "r") as file:
+
+    customer = json.load(file)
+
+
+customer["city"] = "Bangalore"
+customer["active"] = False
+customer["status"] = "UPDATED"
+
+
+with open("customer.json", "w") as file:
+
+    json.dump(
+        customer,
+        file,
+        indent=4
+    )
+
+
+print("JSON file updated successfully")
+
+print(customer)
+
+
+# ============================================================
+# EXERCISE 23 - Handle Invalid JSON
+# ============================================================
+
+print("\n========== EXERCISE 23 ==========")
+
+invalid_json = '''
+{
+    "name": "Jagan",
+    "age": 30
+'''
+
+try:
+
+    data = json.loads(invalid_json)
+
+    print(data)
+
+except json.JSONDecodeError:
+
+    print("Invalid JSON")
+
+
+# ============================================================
+# EXERCISE 24 - AI Model Configuration JSON
+# ============================================================
+
+print("\n========== EXERCISE 24 ==========")
+
+ai_config = {
+
+    "model": "gpt-model",
+
+    "temperature": 0.2,
+
+    "max_tokens": 1000,
+
+    "provider": "Azure",
+
+    "enabled": True,
+
+    "tools": [
+        "search",
+        "calculator",
+        "database"
+    ]
+}
+
+
+json_data = json.dumps(
+    ai_config,
+    indent=4
+)
+
+print(json_data)
+
+
+with open("ai_config.json", "w") as file:
+
+    json.dump(
+        ai_config,
+        file,
+        indent=4
+    )
+
+print("ai_config.json created")
+
+
+# ============================================================
+# EXERCISE 25 - MINI PROJECT
+# CUSTOMER ORDER JSON
+# ============================================================
+
+print("\n========== EXERCISE 25 ==========")
+
+
+# ------------------------------------------------------------
+# STEP 1 - Create Order
+# ------------------------------------------------------------
+
+order = {
+
+    "order_id": "ORD1001",
+
+    "customer": {
+
+        "customer_id": "C101",
+
+        "name": "Rahul",
+
+        "city": "Hyderabad"
+    },
+
+    "order_type": "B2B",
+
+    "currency": "INR",
+
+    "amount": 50000,
+
+    "items": [
+
+        {
+            "product_id": "P101",
+            "product_name": "Laptop",
+            "quantity": 2,
+            "price": 50000
+        },
+
+        {
+            "product_id": "P102",
+            "product_name": "Mouse",
+            "quantity": 2,
+            "price": 1000
+        }
+    ],
+
+    "status": "NEW"
+}
+
+
+# ------------------------------------------------------------
+# STEP 2 - Save Order to JSON File
+# ------------------------------------------------------------
+
+with open("customer_order.json", "w") as file:
+
+    json.dump(
+        order,
+        file,
+        indent=4
+    )
+
+print("customer_order.json created")
+
+
+# ------------------------------------------------------------
+# STEP 3 - Read JSON File
+# ------------------------------------------------------------
+
+with open("customer_order.json", "r") as file:
+
+    data = json.load(file)
+
+
+# ------------------------------------------------------------
+# STEP 4 - Print Order ID
+# ------------------------------------------------------------
+
+print("\nOrder ID:",
+      data["order_id"])
+
+
+# ------------------------------------------------------------
+# STEP 5 - Print Customer Information
+# ------------------------------------------------------------
+
+print("\nCustomer Information")
+
+print("Customer ID:",
+      data["customer"]["customer_id"])
+
+print("Name:",
+      data["customer"]["name"])
+
+print("City:",
+      data["customer"]["city"])
+
+
+# ------------------------------------------------------------
+# STEP 6 - Print Order Type
+# ------------------------------------------------------------
+
+print("\nOrder Type:",
+      data["order_type"])
+
+
+# ------------------------------------------------------------
+# STEP 7 - Print Currency and Amount
+# ------------------------------------------------------------
+
+print("Currency:",
+      data["currency"])
+
+print("Amount:",
+      data["amount"])
+
+
+# ------------------------------------------------------------
+# STEP 8 - Print All Products
+# ------------------------------------------------------------
+
+print("\nOrder Items")
+
+for item in data["items"]:
+
+    print("--------------------")
+
+    print("Product ID:",
+          item["product_id"])
+
+    print("Product:",
+          item["product_name"])
+
+    print("Quantity:",
+          item["quantity"])
+
+    print("Price:",
+          item["price"])
+
+
+# ------------------------------------------------------------
+# STEP 9 - Update Order Status
+# ------------------------------------------------------------
+
+data["status"] = "PROCESSED"
+
+print("\nNew Status:",
+      data["status"])
+
+
+# ------------------------------------------------------------
+# STEP 10 - Add Integration Status
+# ------------------------------------------------------------
+
+data["integration_status"] = "SUCCESS"
+
+print("Integration Status:",
+      data["integration_status"])
+
+
+# ------------------------------------------------------------
+# STEP 11 - Save Updated Order
+# ------------------------------------------------------------
+
+with open("customer_order.json", "w") as file:
+
+    json.dump(
+        data,
+        file,
+        indent=4
+    )
+
+print("\nCustomer order updated successfully")
+
+
+# ------------------------------------------------------------
+# STEP 12 - Display Final JSON
+# ------------------------------------------------------------
+
+print("\nFinal Customer Order:")
+
+print(
+    json.dumps(
+        data,
+        indent=4
+    )
+)
+
+
+# ============================================================
+# END OF JSON PRACTICE
+# ============================================================
+
+print("\n============================================================")
+print("JSON PRACTICE COMPLETED - 25 EXERCISES")
+print("============================================================")

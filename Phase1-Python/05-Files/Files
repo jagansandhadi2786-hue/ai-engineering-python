@@ -1,0 +1,362 @@
+# ============================================================
+# PYTHON FUNDAMENTALS - 05 FILES
+# ============================================================
+# Topics:
+# Reading files
+# Writing files
+# Appending files
+# Reading lines
+# Writing multiple lines
+# with open()
+# Exception handling
+# os
+# pathlib
+# JSON files
+# File processing
+# ============================================================
+
+# ============================================================
+# EXERCISE 01 - Create and write a file
+# ============================================================
+
+with open("01_test.txt", "w") as file:
+    file.write("Hello Python")
+
+print("Exercise 01 completed")
+
+
+# ============================================================
+# EXERCISE 02 - Write multiple lines
+# ============================================================
+
+with open("02_python.txt", "w") as file:
+    file.write("Python\n")
+    file.write("AI Engineering\n")
+    file.write("FastAPI\n")
+
+print("Exercise 02 completed")
+
+
+# ============================================================
+# EXERCISE 03 - Read the complete file
+# ============================================================
+
+with open("02_python.txt", "r") as file:
+    data = file.read()
+
+print("\nExercise 03")
+print(data)
+
+
+# ============================================================
+# EXERCISE 04 - Read one line
+# ============================================================
+
+with open("02_python.txt", "r") as file:
+    line = file.readline()
+
+print("\nExercise 04")
+print(line)
+
+
+# ============================================================
+# EXERCISE 05 - Read all lines
+# ============================================================
+
+with open("02_python.txt", "r") as file:
+    lines = file.readlines()
+
+print("\nExercise 05")
+print(lines)
+
+
+# ============================================================
+# EXERCISE 06 - Read file line by line
+# ============================================================
+
+print("\nExercise 06")
+
+with open("02_python.txt", "r") as file:
+    for line in file:
+        print(line.strip())
+
+
+# ============================================================
+# EXERCISE 07 - Count number of lines
+# ============================================================
+
+with open("02_python.txt", "r") as file:
+    lines = file.readlines()
+
+print("\nExercise 07")
+print("Number of lines:", len(lines))
+
+
+# ============================================================
+# EXERCISE 08 - Count characters
+# ============================================================
+
+with open("02_python.txt", "r") as file:
+    data = file.read()
+
+print("\nExercise 08")
+print("Number of characters:", len(data))
+
+
+# ============================================================
+# EXERCISE 09 - Append data
+# ============================================================
+
+with open("02_python.txt", "a") as file:
+    file.write("LangChain\n")
+
+print("\nExercise 09 completed")
+
+
+# ============================================================
+# EXERCISE 10 - Append multiple lines
+# ============================================================
+
+with open("02_python.txt", "a") as file:
+    file.write("LangGraph\n")
+    file.write("Azure OpenAI\n")
+
+print("Exercise 10 completed")
+
+
+# ============================================================
+# EXERCISE 11 - Write a list into a file
+# ============================================================
+
+skills = [
+    "Python",
+    "FastAPI",
+    "REST API",
+    "JSON",
+    "SQL"
+]
+
+with open("03_skills.txt", "w") as file:
+    for skill in skills:
+        file.write(skill + "\n")
+
+print("\nExercise 11 completed")
+
+
+# ============================================================
+# EXERCISE 12 - Read skills from file
+# ============================================================
+
+with open("03_skills.txt", "r") as file:
+    skills_from_file = file.readlines()
+
+print("\nExercise 12")
+
+for skill in skills_from_file:
+    print(skill.strip())
+
+
+# ============================================================
+# EXERCISE 13 - Search for a word
+# ============================================================
+
+with open("03_skills.txt", "r") as file:
+    data = file.read()
+
+if "Python" in data:
+    print("\nExercise 13")
+    print("Python found")
+else:
+    print("Python not found")
+
+
+# ============================================================
+# EXERCISE 14 - Count a word
+# ============================================================
+
+with open("03_skills.txt", "r") as file:
+    data = file.read()
+
+count = data.count("Python")
+
+print("\nExercise 14")
+print("Python appears:", count, "time(s)")
+
+
+# ============================================================
+# EXERCISE 15 - Create customer file
+# ============================================================
+
+customers = [
+    "1001,Jagan,India",
+    "1002,Ravi,India",
+    "1003,John,South Africa",
+    "1004,David,USA"
+]
+
+with open("04_customers.txt", "w") as file:
+    for customer in customers:
+        file.write(customer + "\n")
+
+print("\nExercise 15 completed")
+
+
+# ============================================================
+# EXERCISE 16 - Read customer file
+# ============================================================
+
+print("\nExercise 16")
+
+with open("04_customers.txt", "r") as file:
+    for line in file:
+        customer = line.strip()
+
+        print(customer)
+
+
+# ============================================================
+# EXERCISE 17 - Split customer data
+# ============================================================
+
+print("\nExercise 17")
+
+with open("04_customers.txt", "r") as file:
+    for line in file:
+        customer_id, name, country = line.strip().split(",")
+
+        print("ID:", customer_id)
+        print("Name:", name)
+        print("Country:", country)
+        print("----------------")
+
+
+# ============================================================
+# EXERCISE 18 - Find customers from India
+# ============================================================
+
+print("\nExercise 18")
+
+with open("04_customers.txt", "r") as file:
+    for line in file:
+        customer_id, name, country = line.strip().split(",")
+
+        if country == "India":
+            print(name)
+
+
+# ============================================================
+# EXERCISE 19 - Find customers from South Africa
+# ============================================================
+
+print("\nExercise 19")
+
+with open("04_customers.txt", "r") as file:
+    for line in file:
+        customer_id, name, country = line.strip().split(",")
+
+        if country == "South Africa":
+            print(name)
+
+
+# ============================================================
+# EXERCISE 20 - Handle missing file
+# ============================================================
+
+print("\nExercise 20")
+
+try:
+    with open("missing.txt", "r") as file:
+        data = file.read()
+
+    print(data)
+
+except FileNotFoundError:
+    print("File does not exist")
+
+
+# ============================================================
+# EXERCISE 21 - Check whether a file exists
+# ============================================================
+
+import os
+
+print("\nExercise 21")
+
+if os.path.exists("04_customers.txt"):
+    print("Customer file exists")
+else:
+    print("Customer file does not exist")
+
+
+# ============================================================
+# EXERCISE 22 - Get file size
+# ============================================================
+
+if os.path.exists("04_customers.txt"):
+    size = os.path.getsize("04_customers.txt")
+
+    print("\nExercise 22")
+    print("File size:", size, "bytes")
+
+
+# ============================================================
+# EXERCISE 23 - Using pathlib
+# ============================================================
+
+from pathlib import Path
+
+file_path = Path("04_customers.txt")
+
+print("\nExercise 23")
+
+if file_path.exists():
+    print("File exists")
+    print("File name:", file_path.name)
+    print("File extension:", file_path.suffix)
+
+
+# ============================================================
+# EXERCISE 24 - Write JSON file
+# ============================================================
+
+import json
+
+customer_data = {
+    "customer_id": "C101",
+    "name": "Jagan",
+    "country": "India",
+    "skills": [
+        "Python",
+        "SAP CPI",
+        "AI Engineering"
+    ]
+}
+
+with open("05_customer.json", "w") as file:
+    json.dump(customer_data, file, indent=4)
+
+print("\nExercise 24 completed")
+
+
+# ============================================================
+# EXERCISE 25 - Read JSON file
+# ============================================================
+
+with open("05_customer.json", "r") as file:
+    customer = json.load(file)
+
+print("\nExercise 25")
+
+print("Customer ID:", customer["customer_id"])
+print("Name:", customer["name"])
+print("Country:", customer["country"])
+print("Skills:", customer["skills"])
+
+
+# ============================================================
+# END OF FILE EXERCISES
+# ============================================================
+
+print("\n========================================")
+print("All 25 file exercises completed!")
+print("========================================")

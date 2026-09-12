@@ -1,0 +1,758 @@
+# ============================================================
+# PYTHON FUNDAMENTALS - 05 EXCEPTION HANDLING
+# ============================================================
+#
+# Topics:
+# - try
+# - except
+# - Specific Exceptions
+# - Multiple Exceptions
+# - else
+# - finally
+# - raise
+# - Exception as e
+# - ValueError
+# - TypeError
+# - ZeroDivisionError
+# - IndexError
+# - KeyError
+# - FileNotFoundError
+# - JSONDecodeError
+#
+# 25 HANDS-ON EXERCISES
+# ============================================================
+
+
+# ============================================================
+# EXERCISE 01 - BASIC TRY / EXCEPT
+# ============================================================
+# Task:
+# Ask the user for a number.
+# Convert it to an integer.
+# Handle invalid input using ValueError.
+#
+# Example:
+# Enter a number: abc
+# Output:
+# Please enter a valid integer.
+# ============================================================
+
+try:
+    number = int(input("Enter a number: "))
+    print("Number:", number)
+except ValueError:
+    print("Please enter a valid integer.")
+
+
+# ============================================================
+# EXERCISE 02 - DIVISION
+# ============================================================
+# Task:
+# Ask for two numbers and divide them.
+#
+# Handle:
+# - ValueError
+# - ZeroDivisionError
+# ============================================================
+
+try:
+    first_number = int(input("Enter first number: "))
+    second_number = int(input("Enter second number: "))
+
+    result = first_number / second_number
+
+    print("Result:", result)
+
+except ValueError:
+    print("Please enter valid numbers.")
+
+except ZeroDivisionError:
+    print("Cannot divide by zero.")
+
+
+# ============================================================
+# EXERCISE 03 - INTEGER CONVERSION
+# ============================================================
+# Task:
+# Ask the user for their age.
+# Convert the input into an integer.
+# Handle invalid input.
+# ============================================================
+
+try:
+    age = int(input("Enter your age: "))
+    print("Age:", age)
+
+except ValueError:
+    print("Age must be a valid number.")
+
+
+# ============================================================
+# EXERCISE 04 - FLOAT CONVERSION
+# ============================================================
+# Task:
+# Ask the user for a price.
+# Convert it to float.
+# Handle invalid input.
+# ============================================================
+
+try:
+    price = float(input("Enter price: "))
+    print("Price:", price)
+
+except ValueError:
+    print("Please enter a valid price.")
+
+
+# ============================================================
+# EXERCISE 05 - LIST INDEX ERROR
+# ============================================================
+# Task:
+# Create a list of names.
+# Ask the user for an index.
+# Print the name at that index.
+#
+# Handle:
+# - ValueError
+# - IndexError
+# ============================================================
+
+names = ["Jagan", "Ravi", "John"]
+
+try:
+    index = int(input("Enter index: "))
+    print("Name:", names[index])
+
+except ValueError:
+    print("Please enter a valid index.")
+
+except IndexError:
+    print("Index does not exist.")
+
+
+# ============================================================
+# EXERCISE 06 - DICTIONARY KEY ERROR
+# ============================================================
+# Task:
+# Ask the user for a dictionary key.
+# Print the corresponding value.
+# Handle KeyError.
+# ============================================================
+
+customer = {
+    "id": 101,
+    "name": "Jagan",
+    "city": "Hyderabad"
+}
+
+try:
+    key = input("Enter customer key: ")
+    print("Value:", customer[key])
+
+except KeyError:
+    print("That key does not exist.")
+
+
+# ============================================================
+# EXERCISE 07 - MULTIPLE EXCEPTIONS
+# ============================================================
+# Task:
+# Get two numbers.
+# Divide them.
+#
+# Handle:
+# - ValueError
+# - ZeroDivisionError
+# ============================================================
+
+try:
+    number1 = int(input("Enter first number: "))
+    number2 = int(input("Enter second number: "))
+
+    result = number1 / number2
+
+    print("Result:", result)
+
+except ValueError:
+    print("Invalid number.")
+
+except ZeroDivisionError:
+    print("Cannot divide by zero.")
+
+
+# ============================================================
+# EXERCISE 08 - ELSE
+# ============================================================
+# Task:
+# Use try, except and else.
+#
+# else should execute only when there is no error.
+# ============================================================
+
+try:
+    number = int(input("Enter number: "))
+
+except ValueError:
+    print("Invalid input.")
+
+else:
+    print("Valid number:", number)
+    print("Square:", number * number)
+
+
+# ============================================================
+# EXERCISE 09 - FINALLY
+# ============================================================
+# Task:
+# Use finally.
+#
+# finally must execute whether an error occurs or not.
+# ============================================================
+
+try:
+    number = int(input("Enter number: "))
+    print("Number:", number)
+
+except ValueError:
+    print("Invalid number.")
+
+finally:
+    print("Program completed.")
+
+
+# ============================================================
+# EXERCISE 10 - ERROR MESSAGE
+# ============================================================
+# Task:
+# Capture the actual exception using:
+#
+# except Exception as e
+#
+# ============================================================
+
+try:
+    number = int("hello")
+    print(number)
+
+except Exception as e:
+    print("Error:", e)
+
+
+# ============================================================
+# EXERCISE 11 - SAFE CALCULATOR
+# ============================================================
+# Task:
+# Build a simple calculator.
+#
+# Supported operators:
+# + - * /
+#
+# Handle:
+# - Invalid numbers
+# - Invalid operator
+# - Division by zero
+# ============================================================
+
+try:
+    number1 = float(input("Enter first number: "))
+    operator = input("Enter operator (+, -, *, /): ")
+    number2 = float(input("Enter second number: "))
+
+    if operator == "+":
+        result = number1 + number2
+
+    elif operator == "-":
+        result = number1 - number2
+
+    elif operator == "*":
+        result = number1 * number2
+
+    elif operator == "/":
+        result = number1 / number2
+
+    else:
+        raise ValueError("Invalid operator.")
+
+    print("Result:", result)
+
+except ValueError as e:
+    print("Error:", e)
+
+except ZeroDivisionError:
+    print("Cannot divide by zero.")
+
+
+# ============================================================
+# EXERCISE 12 - AGE VALIDATION
+# ============================================================
+# Task:
+# Age must:
+# - Be an integer
+# - Be between 0 and 120
+#
+# Use raise ValueError.
+# ============================================================
+
+try:
+    age = int(input("Enter age: "))
+
+    if age < 0 or age > 120:
+        raise ValueError("Age must be between 0 and 120.")
+
+    print("Valid age:", age)
+
+except ValueError as e:
+    print("Error:", e)
+
+
+# ============================================================
+# EXERCISE 13 - PASSWORD LENGTH
+# ============================================================
+# Task:
+# Password must contain at least 8 characters.
+#
+# Use raise.
+# ============================================================
+
+try:
+    password = input("Enter password: ")
+
+    if len(password) < 8:
+        raise ValueError(
+            "Password must contain at least 8 characters."
+        )
+
+    print("Password length is valid.")
+
+except ValueError as e:
+    print("Error:", e)
+
+
+# ============================================================
+# EXERCISE 14 - POSITIVE NUMBER
+# ============================================================
+# Task:
+# Ask for a number.
+# If the number is negative, raise ValueError.
+# ============================================================
+
+try:
+    number = int(input("Enter a number: "))
+
+    if number < 0:
+        raise ValueError("Number must be positive.")
+
+    print("Valid number:", number)
+
+except ValueError as e:
+    print("Error:", e)
+
+
+# ============================================================
+# EXERCISE 15 - EVEN NUMBER VALIDATION
+# ============================================================
+# Task:
+# Ask for a number.
+# If the number is not even, raise ValueError.
+# ============================================================
+
+try:
+    number = int(input("Enter an even number: "))
+
+    if number % 2 != 0:
+        raise ValueError("Number must be even.")
+
+    print("Valid even number:", number)
+
+except ValueError as e:
+    print("Error:", e)
+
+
+# ============================================================
+# EXERCISE 16 - FILE NOT FOUND
+# ============================================================
+# Task:
+# Try to read customers.txt.
+# Handle FileNotFoundError.
+# Use finally.
+# ============================================================
+
+try:
+    file = open("customers.txt", "r")
+
+    content = file.read()
+
+    print(content)
+
+    file.close()
+
+except FileNotFoundError:
+    print("customers.txt was not found.")
+
+finally:
+    print("File operation completed.")
+
+
+# ============================================================
+# EXERCISE 17 - FILE READING
+# ============================================================
+# Task:
+# Read customer data from customers.txt.
+#
+# Expected file content:
+#
+# 101,Jagan,Hyderabad
+# 102,Ravi,Bangalore
+# 103,John,Chennai
+#
+# Handle FileNotFoundError.
+# ============================================================
+
+try:
+    file = open("customers.txt", "r")
+
+    for line in file:
+        print(line.strip())
+
+    file.close()
+
+except FileNotFoundError:
+    print("Customer file not found.")
+
+
+# ============================================================
+# EXERCISE 18 - JSON PARSING
+# ============================================================
+# Task:
+# Convert JSON string into a Python dictionary.
+#
+# Handle JSONDecodeError.
+# ============================================================
+
+import json
+
+json_data = '{"name": "Jagan", "age": 30}'
+
+try:
+    customer = json.loads(json_data)
+
+    print("Customer:", customer)
+
+except json.JSONDecodeError:
+    print("Invalid JSON data.")
+
+
+# ============================================================
+# EXERCISE 19 - API-STYLE JSON VALIDATION
+# ============================================================
+# Task:
+# Parse JSON.
+# Read:
+# - customer_id
+# - name
+#
+# Handle:
+# - JSONDecodeError
+# - KeyError
+# ============================================================
+
+json_data = '{"customer_id": 101, "name": "Jagan"}'
+
+try:
+    customer = json.loads(json_data)
+
+    print("Customer ID:", customer["customer_id"])
+    print("Customer Name:", customer["name"])
+
+except json.JSONDecodeError:
+    print("Invalid JSON.")
+
+except KeyError as e:
+    print("Missing key:", e)
+
+
+# ============================================================
+# EXERCISE 20 - TYPE ERROR
+# ============================================================
+# Task:
+# Try to add a string and an integer.
+# Handle TypeError.
+# ============================================================
+
+try:
+    name = "Jagan"
+    age = 30
+
+    result = name + age
+
+    print(result)
+
+except TypeError:
+    print("Cannot combine string and integer.")
+
+
+# ============================================================
+# EXERCISE 21 - CUSTOMER VALIDATION
+# ============================================================
+# Task:
+# Create a function that validates a customer.
+#
+# Required:
+# - id
+# - name
+# - age
+#
+# Age must be greater than 0.
+# ============================================================
+
+def validate_customer(customer):
+
+    if "id" not in customer:
+        raise KeyError("Customer ID is missing.")
+
+    if "name" not in customer:
+        raise KeyError("Customer name is missing.")
+
+    if "age" not in customer:
+        raise KeyError("Customer age is missing.")
+
+    if customer["age"] <= 0:
+        raise ValueError("Customer age must be greater than 0.")
+
+    return True
+
+
+customer = {
+    "id": 101,
+    "name": "Jagan",
+    "age": 30
+}
+
+try:
+    validate_customer(customer)
+    print("Customer is valid.")
+
+except KeyError as e:
+    print("Missing field:", e)
+
+except ValueError as e:
+    print("Invalid value:", e)
+
+
+# ============================================================
+# EXERCISE 22 - FUNCTION EXCEPTION HANDLING
+# ============================================================
+# Task:
+# Create a division function.
+# Handle the exception outside the function.
+# ============================================================
+
+def divide_numbers(a, b):
+    return a / b
+
+
+try:
+    result = divide_numbers(100, 0)
+    print("Result:", result)
+
+except ZeroDivisionError:
+    print("Cannot divide by zero.")
+
+
+# ============================================================
+# EXERCISE 23 - RETRY USER INPUT
+# ============================================================
+# Task:
+# Keep asking the user for a number until
+# valid input is entered.
+#
+# This combines:
+# - while loop
+# - try
+# - except
+# ============================================================
+
+while True:
+
+    try:
+        number = int(input("Enter a number: "))
+
+        print("Valid number:", number)
+
+        break
+
+    except ValueError:
+        print("Invalid input. Please try again.")
+
+
+# ============================================================
+# EXERCISE 24 - AI API RESPONSE SIMULATION
+# ============================================================
+# Task:
+# Simulate an API response.
+#
+# JSON:
+# {
+#     "status": "success",
+#     "customer": {
+#         "id": 101,
+#         "name": "Jagan"
+#     }
+# }
+#
+# Print:
+# Status
+# Customer ID
+# Customer Name
+#
+# Handle:
+# - JSONDecodeError
+# - KeyError
+# ============================================================
+
+api_response = '''
+{
+    "status": "success",
+    "customer": {
+        "id": 101,
+        "name": "Jagan"
+    }
+}
+'''
+
+try:
+    data = json.loads(api_response)
+
+    print("Status:", data["status"])
+    print("Customer ID:", data["customer"]["id"])
+    print("Customer Name:", data["customer"]["name"])
+
+except json.JSONDecodeError:
+    print("Invalid API JSON response.")
+
+except KeyError as e:
+    print("Missing API field:", e)
+
+
+# ============================================================
+# EXERCISE 25 - MINI PROJECT
+# CUSTOMER ORDER PROCESSOR
+# ============================================================
+#
+# Business Scenario:
+# Process a customer order.
+#
+# Required fields:
+# - order_id
+# - customer_id
+# - amount
+# - currency
+#
+# Validation:
+# - order_id must exist
+# - customer_id must exist
+# - amount must exist
+# - amount must be greater than 0
+# - currency must exist
+#
+# Use:
+# - try
+# - except
+# - else
+# - finally
+# - raise
+#
+# ============================================================
+
+
+def process_order(order):
+
+    # Validate order_id
+    if "order_id" not in order:
+        raise KeyError("Order ID is missing.")
+
+    # Validate customer_id
+    if "customer_id" not in order:
+        raise KeyError("Customer ID is missing.")
+
+    # Validate amount
+    if "amount" not in order:
+        raise KeyError("Amount is missing.")
+
+    # Validate amount value
+    if order["amount"] <= 0:
+        raise ValueError("Amount must be greater than 0.")
+
+    # Validate currency
+    if "currency" not in order:
+        raise KeyError("Currency is missing.")
+
+    return True
+
+
+# Sample Order
+
+order = {
+    "order_id": "ORD1001",
+    "customer_id": "C101",
+    "amount": 500,
+    "currency": "INR"
+}
+
+
+try:
+
+    process_order(order)
+
+except KeyError as e:
+
+    print("Order processing failed.")
+    print("Reason:", e)
+
+except ValueError as e:
+
+    print("Order processing failed.")
+    print("Reason:", e)
+
+else:
+
+    print("Order processed successfully.")
+    print("Order ID:", order["order_id"])
+    print("Customer ID:", order["customer_id"])
+    print("Amount:", order["amount"])
+    print("Currency:", order["currency"])
+
+finally:
+
+    print("Order processing completed.")
+
+
+# ============================================================
+# END OF PYTHON EXCEPTION HANDLING
+# ============================================================
+#
+# After completing these exercises, you should understand:
+#
+# 1. try
+# 2. except
+# 3. Specific exceptions
+# 4. Multiple exceptions
+# 5. else
+# 6. finally
+# 7. raise
+# 8. Exception as e
+# 9. ValueError
+# 10. TypeError
+# 11. ZeroDivisionError
+# 12. IndexError
+# 13. KeyError
+# 14. FileNotFoundError
+# 15. JSONDecodeError
+# 16. Exception handling in functions
+# 17. Exception handling with JSON
+# 18. Exception handling with API-style data
+# 19. Data validation
+#
+# NEXT TOPIC:
+# Functions
+# ============================================================

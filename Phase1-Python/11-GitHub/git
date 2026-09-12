@@ -1,0 +1,1401 @@
+# ============================================================
+
+# PYTHON FUNDAMENTALS - GIT & GITHUB
+
+# ============================================================
+
+# Hands-on Practice
+
+# 25 Exercises
+
+# ============================================================
+
+# ============================================================
+
+# HOW TO USE THIS FILE
+
+# ============================================================
+
+#
+
+# This file contains:
+
+#
+
+# 1. Short theory
+
+# 2. Git command
+
+# 3. Practical exercise
+
+# 4. Expected result
+
+#
+
+# IMPORTANT:
+
+# Git commands should be executed in PowerShell / Terminal.
+
+#
+
+# ============================================================
+
+# ============================================================
+
+# EXERCISE 01 - CHECK GIT INSTALLATION
+
+# ============================================================
+
+# THEORY
+
+#
+
+# Git is a version-control system.
+
+#
+
+# It allows you to:
+
+#
+
+# - Track changes
+
+# - Create versions
+
+# - Work with branches
+
+# - Collaborate with others
+
+# - Upload projects to GitHub
+
+#
+
+# GitHub is a cloud platform where Git repositories can be
+
+# stored and shared.
+
+# COMMAND
+
+git --version
+
+# EXERCISE
+
+#
+
+# Check whether Git is installed.
+
+#
+
+# Expected result:
+
+#
+
+# git version 2.x.x
+
+#
+
+# If Git is not installed, install Git for Windows first.
+
+# ============================================================
+
+# EXERCISE 02 - CONFIGURE GIT USERNAME
+
+# ============================================================
+
+# THEORY
+
+#
+
+# Git records the author of each commit.
+
+#
+
+# Configure your Git username.
+
+# COMMAND
+
+git config --global user.name "Your Name"
+
+# EXERCISE
+
+#
+
+# Replace "Your Name" with your name.
+
+#
+
+# Example:
+
+#
+
+# git config --global user.name "Jagan Reddy"
+
+# CHECK
+
+git config --global user.name
+
+# ============================================================
+
+# EXERCISE 03 - CONFIGURE GIT EMAIL
+
+# ============================================================
+
+# THEORY
+
+#
+
+# Git also records an email address with commits.
+
+# COMMAND
+
+git config --global user.email "[your-email@example.com](mailto:your-email@example.com)"
+
+# CHECK
+
+git config --global user.email
+
+# EXERCISE
+
+#
+
+# Configure the email address associated with your GitHub
+
+# account.
+
+# ============================================================
+
+# EXERCISE 04 - VIEW GIT CONFIGURATION
+
+# ============================================================
+
+# THEORY
+
+#
+
+# You can view your Git configuration using:
+
+git config --global --list
+
+# EXERCISE
+
+#
+
+# Run the command and identify:
+
+#
+
+# - user.name
+
+# - user.email
+
+# ============================================================
+
+# EXERCISE 05 - CREATE A PYTHON PROJECT
+
+# ============================================================
+
+# THEORY
+
+#
+
+# Git works inside a project directory.
+
+#
+
+# Create a Python practice project.
+
+# COMMANDS
+
+mkdir git-python-practice
+
+cd git-python-practice
+
+# Create a Python file:
+
+#
+
+# main.py
+
+# main.py
+
+print("Hello Git!")
+print("I am learning Git and GitHub.")
+
+# EXERCISE
+
+#
+
+# Create main.py and run:
+
+python main.py
+
+# Expected output:
+
+#
+
+# Hello Git!
+
+# I am learning Git and GitHub.
+
+# ============================================================
+
+# EXERCISE 06 - INITIALIZE A GIT REPOSITORY
+
+# ============================================================
+
+# THEORY
+
+#
+
+# git init creates a Git repository in the current directory.
+
+# COMMAND
+
+git init
+
+# EXERCISE
+
+#
+
+# Initialize Git in your Python project.
+
+#
+
+# Expected message:
+
+#
+
+# Initialized empty Git repository...
+
+# ============================================================
+
+# EXERCISE 07 - CHECK GIT STATUS
+
+# ============================================================
+
+# THEORY
+
+#
+
+# git status shows:
+
+#
+
+# - Modified files
+
+# - New files
+
+# - Staged files
+
+# - Current branch
+
+# COMMAND
+
+git status
+
+# EXERCISE
+
+#
+
+# Run git status.
+
+#
+
+# You should see main.py as an untracked file.
+
+# ============================================================
+
+# EXERCISE 08 - ADD A FILE TO STAGING
+
+# ============================================================
+
+# THEORY
+
+#
+
+# Git has three important areas:
+
+#
+
+# Working Directory
+
+# ↓
+
+# Staging Area
+
+# ↓
+
+# Repository
+
+#
+
+# git add moves changes into the staging area.
+
+# COMMAND
+
+git add main.py
+
+# CHECK
+
+git status
+
+# EXERCISE
+
+#
+
+# Confirm that main.py is now staged.
+
+# ============================================================
+
+# EXERCISE 09 - CREATE YOUR FIRST COMMIT
+
+# ============================================================
+
+# THEORY
+
+#
+
+# A commit is a saved version of your project.
+
+# COMMAND
+
+git commit -m "Initial Python project"
+
+# EXERCISE
+
+#
+
+# Create your first commit.
+
+#
+
+# Good commit messages explain what changed.
+
+# ============================================================
+
+# EXERCISE 10 - VIEW COMMIT HISTORY
+
+# ============================================================
+
+# THEORY
+
+#
+
+# git log displays commit history.
+
+# COMMAND
+
+git log
+
+# Short version:
+
+git log --oneline
+
+# EXERCISE
+
+#
+
+# Identify:
+
+#
+
+# - Commit ID
+
+# - Author
+
+# - Date
+
+# - Commit message
+
+# ============================================================
+
+# EXERCISE 11 - MODIFY A PYTHON FILE
+
+# ============================================================
+
+# THEORY
+
+#
+
+# Git detects changes made after a commit.
+
+# MODIFY main.py
+
+print("Hello Git!")
+print("I am learning Git and GitHub.")
+print("I am preparing for AI Engineering.")
+
+# COMMAND
+
+git status
+
+# EXERCISE
+
+#
+
+# Observe the modified file.
+
+# ============================================================
+
+# EXERCISE 12 - VIEW CHANGES WITH GIT DIFF
+
+# ============================================================
+
+# THEORY
+
+#
+
+# git diff shows changes that have not been staged.
+
+# COMMAND
+
+git diff
+
+# EXERCISE
+
+#
+
+# Identify:
+
+#
+
+# - Deleted lines
+
+# - Added lines
+
+#
+
+# The + sign normally represents added content.
+
+# ============================================================
+
+# EXERCISE 13 - STAGE AND COMMIT CHANGES
+
+# ============================================================
+
+# COMMANDS
+
+git add main.py
+
+git commit -m "Add AI engineering message"
+
+# CHECK
+
+git log --oneline
+
+# EXERCISE
+
+#
+
+# Confirm that a second commit exists.
+
+# ============================================================
+
+# EXERCISE 14 - CREATE .gitignore
+
+# ============================================================
+
+# THEORY
+
+#
+
+# .gitignore tells Git which files/folders should NOT be
+
+# tracked.
+
+#
+
+# Python projects commonly ignore:
+
+#
+
+# - .venv
+
+# - **pycache**
+
+# - .pyc files
+
+# - .env
+
+#
+
+# NEVER commit passwords, API keys, tokens, or secrets.
+
+# CREATE FILE
+
+# .gitignore
+
+# CONTENT
+
+.venv/
+**pycache**/
+*.pyc
+.env
+
+# EXERCISE
+
+#
+
+# Create .gitignore and commit it.
+
+git add .gitignore
+
+git commit -m "Add Python gitignore"
+
+# ============================================================
+
+# EXERCISE 15 - CHECK WHAT GIT TRACKS
+
+# ============================================================
+
+# THEORY
+
+#
+
+# git status shows tracked and untracked changes.
+
+#
+
+# git ls-files shows files currently tracked by Git.
+
+# COMMAND
+
+git ls-files
+
+# EXERCISE
+
+#
+
+# Confirm that:
+
+#
+
+# main.py
+
+# .gitignore
+
+#
+
+# are tracked.
+
+# ============================================================
+
+# EXERCISE 16 - CREATE A SECOND PYTHON FILE
+
+# ============================================================
+
+# THEORY
+
+#
+
+# You can add multiple files to a repository.
+
+# CREATE
+
+calculator.py
+
+# CODE
+
+def add(a, b):
+return a + b
+
+def subtract(a, b):
+return a - b
+
+print("Addition:", add(10, 5))
+print("Subtraction:", subtract(10, 5))
+
+# EXERCISE
+
+#
+
+# Run:
+
+python calculator.py
+
+# Then:
+
+git status
+
+# Stage and commit:
+
+git add calculator.py
+
+git commit -m "Add calculator example"
+
+# ============================================================
+
+# EXERCISE 17 - CREATE A GITHUB REPOSITORY
+
+# ============================================================
+
+# THEORY
+
+#
+
+# Git = version control on your computer.
+
+#
+
+# GitHub = online hosting/collaboration platform for Git
+
+# repositories.
+
+#
+
+# Create a new repository on GitHub.
+
+#
+
+# Suggested repository name:
+
+#
+
+# python-git-github-practice
+
+#
+
+# Recommended:
+
+#
+
+# Public
+
+# README can be added later from your local project.
+
+# EXERCISE
+
+#
+
+# Create the GitHub repository.
+
+#
+
+# Do NOT create another local Git repository inside the project.
+
+# ============================================================
+
+# EXERCISE 18 - CONNECT LOCAL GIT TO GITHUB
+
+# ============================================================
+
+# THEORY
+
+#
+
+# A remote connects your local Git repository to GitHub.
+
+# COMMAND
+
+git remote add origin https://github.com/YOUR_USERNAME/python-git-github-practice.git
+
+# CHECK
+
+git remote -v
+
+# EXERCISE
+
+#
+
+# Replace YOUR_USERNAME with your actual GitHub username.
+
+# ============================================================
+
+# EXERCISE 19 - PUSH YOUR PROJECT TO GITHUB
+
+# ============================================================
+
+# THEORY
+
+#
+
+# git push uploads commits from your local repository
+
+# to the remote GitHub repository.
+
+# COMMAND
+
+git branch -M main
+
+git push -u origin main
+
+# EXERCISE
+
+#
+
+# Open your GitHub repository in the browser.
+
+#
+
+# Confirm that you can see:
+
+#
+
+# main.py
+
+# calculator.py
+
+# .gitignore
+
+# ============================================================
+
+# EXERCISE 20 - CLONE A GITHUB REPOSITORY
+
+# ============================================================
+
+# THEORY
+
+#
+
+# git clone downloads a remote GitHub repository to your
+
+# computer.
+
+# COMMAND
+
+git clone https://github.com/YOUR_USERNAME/python-git-github-practice.git
+
+# EXERCISE
+
+#
+
+# Clone your repository into another folder.
+
+#
+
+# Then enter it:
+
+cd python-git-github-practice
+
+# Check:
+
+git status
+
+# ============================================================
+
+# EXERCISE 21 - CREATE A FEATURE BRANCH
+
+# ============================================================
+
+# THEORY
+
+#
+
+# A branch allows you to work on a feature without directly
+
+# changing the main branch.
+
+# COMMAND
+
+git branch
+
+# Create branch:
+
+git checkout -b feature/customer-api
+
+# Modern alternative:
+
+git switch -c feature/customer-api
+
+# EXERCISE
+
+#
+
+# Create a branch called:
+
+#
+
+# feature/customer-api
+
+# Check:
+
+git branch
+
+# ============================================================
+
+# EXERCISE 22 - DEVELOP ON A BRANCH
+
+# ============================================================
+
+# THEORY
+
+#
+
+# Now make changes on the feature branch.
+
+# CREATE
+
+customer_api.py
+
+# CODE
+
+customers = [
+{
+"id": 1,
+"name": "John",
+"country": "India"
+},
+{
+"id": 2,
+"name": "David",
+"country": "South Africa"
+}
+]
+
+for customer in customers:
+print(customer)
+
+# EXERCISE
+
+#
+
+# Add your own customer.
+
+#
+
+# Then run:
+
+python customer_api.py
+
+# Stage:
+
+git add customer_api.py
+
+# Commit:
+
+git commit -m "Add customer API example"
+
+# ============================================================
+
+# EXERCISE 23 - MERGE A FEATURE BRANCH
+
+# ============================================================
+
+# THEORY
+
+#
+
+# After completing a feature, you can merge it into main.
+
+# First check the branch:
+
+git branch
+
+# Switch to main:
+
+git switch main
+
+# Merge feature:
+
+git merge feature/customer-api
+
+# EXERCISE
+
+#
+
+# Confirm that customer_api.py now exists on main.
+
+# Check:
+
+git log --oneline
+
+# ============================================================
+
+# EXERCISE 24 - CREATE AND RESOLVE A MERGE CONFLICT
+
+# ============================================================
+
+# THEORY
+
+#
+
+# A merge conflict occurs when Git cannot automatically decide
+
+# which version of a file should be kept.
+
+# STEP 1
+
+#
+
+# Create a branch:
+
+git switch -c feature/conflict-test
+
+# STEP 2
+
+#
+
+# Modify the same line in main.py.
+
+#
+
+# Example:
+
+#
+
+# print("Version from feature branch")
+
+# Commit:
+
+git add main.py
+
+git commit -m "Update main message"
+
+# STEP 3
+
+#
+
+# Switch to main:
+
+git switch main
+
+# Modify the same line differently.
+
+#
+
+# Example:
+
+#
+
+# print("Version from main branch")
+
+# Commit:
+
+git add main.py
+
+git commit -m "Update main message from main"
+
+# STEP 4
+
+#
+
+# Merge:
+
+git merge feature/conflict-test
+
+# Git may report a conflict.
+
+# STEP 5
+
+#
+
+# Open main.py.
+
+#
+
+# You may see something like:
+
+#
+
+# <<<<<<< HEAD
+
+# Version from main branch
+
+# =======
+
+# Version from feature branch
+
+# >>>>>>> feature/conflict-test
+
+#
+
+#
+
+# Choose the correct version.
+
+#
+
+# Remove:
+
+#
+
+# <<<<<<<
+
+# =======
+
+# >>>>>>>
+
+#
+
+#
+
+# Then:
+
+git add main.py
+
+git commit -m "Resolve merge conflict"
+
+# ============================================================
+
+# EXERCISE 25 - COMPLETE GIT/GITHUB WORKFLOW
+
+# ============================================================
+
+# THEORY
+
+#
+
+# This is the workflow you should eventually be comfortable
+
+# using for AI-engineering projects.
+
+# STEP 1 - CHECK STATUS
+
+git status
+
+# STEP 2 - CREATE / MODIFY PYTHON CODE
+
+# Example:
+
+#
+
+# app.py
+
+def greet(name):
+return f"Hello {name}"
+
+print(greet("AI Engineer"))
+
+# STEP 3 - TEST
+
+python app.py
+
+# STEP 4 - CHECK CHANGES
+
+git status
+
+# STEP 5 - REVIEW CHANGES
+
+git diff
+
+# STEP 6 - STAGE
+
+git add .
+
+# STEP 7 - CHECK STAGED CHANGES
+
+git status
+
+# STEP 8 - COMMIT
+
+git commit -m "Add greeting application"
+
+# STEP 9 - PUSH
+
+git push
+
+# STEP 10 - CHECK GITHUB
+
+# Open your GitHub repository and confirm the new commit.
+
+# ============================================================
+
+# FINAL CHALLENGE
+
+# ============================================================
+
+# Build a small Python project called:
+
+#
+
+# customer-management-api
+
+#
+
+# Suggested structure:
+
+#
+
+# customer-management-api/
+
+#
+
+# ├── app.py
+
+# ├── customers.py
+
+# ├── requirements.txt
+
+# ├── README.md
+
+# ├── .gitignore
+
+# └── tests/
+
+#
+
+#
+
+# Requirements:
+
+#
+
+# 1. Initialize Git.
+
+# 2. Create .gitignore.
+
+# 3. Create Python files.
+
+# 4. Test your application.
+
+# 5. Create at least 3 commits.
+
+# 6. Create a GitHub repository.
+
+# 7. Connect local Git to GitHub.
+
+# 8. Push main branch.
+
+# 9. Create feature/customer-api branch.
+
+# 10. Add a new feature.
+
+# 11. Commit the feature.
+
+# 12. Push the feature branch.
+
+# 13. Merge the feature into main.
+
+#
+
+#
+
+# ============================================================
+
+# IMPORTANT GIT COMMAND CHEAT SHEET
+
+# ============================================================
+
+# Check Git version
+
+git --version
+
+# Configure username
+
+git config --global user.name "Your Name"
+
+# Configure email
+
+git config --global user.email "[your@email.com](mailto:your@email.com)"
+
+# Initialize repository
+
+git init
+
+# Check status
+
+git status
+
+# Stage one file
+
+git add filename.py
+
+# Stage everything
+
+git add .
+
+# Commit
+
+git commit -m "Your message"
+
+# View history
+
+git log --oneline
+
+# View changes
+
+git diff
+
+# View branches
+
+git branch
+
+# Create branch
+
+git branch feature-name
+
+# Create and switch branch
+
+git switch -c feature-name
+
+# Switch branch
+
+git switch main
+
+# Merge branch
+
+git merge feature-name
+
+# Add GitHub remote
+
+git remote add origin REPOSITORY_URL
+
+# View remote
+
+git remote -v
+
+# Push
+
+git push
+
+# Push first time
+
+git push -u origin main
+
+# Pull latest changes
+
+git pull
+
+# Clone repository
+
+git clone REPOSITORY_URL
+
+# ============================================================
+
+# AI ENGINEERING GIT WORKFLOW
+
+# ============================================================
+
+# For your future AI projects, aim to use this workflow:
+
+# 1. Create project
+
+mkdir ai-project
+
+# 2. Enter project
+
+cd ai-project
+
+# 3. Initialize Git
+
+git init
+
+# 4. Create .gitignore
+
+# 5. Write Python code
+
+# 6. Test
+
+python app.py
+
+# 7. Check changes
+
+git status
+
+# 8. Review
+
+git diff
+
+# 9. Stage
+
+git add .
+
+# 10. Commit
+
+git commit -m "Add initial AI application"
+
+# 11. Create feature branch
+
+git switch -c feature/rag
+
+# 12. Develop
+
+# 13. Test
+
+# 14. Commit
+
+git add .
+
+git commit -m "Add RAG functionality"
+
+# 15. Push
+
+git push -u origin feature/rag
+
+# 16. Create Pull Request on GitHub
+
+# 17. Review
+
+# 18. Merge into main
+
+# ============================================================
+
+# TARGET
+
+# ============================================================
+
+# You should be able to explain:
+
+#
+
+# Git
+
+# GitHub
+
+# Repository
+
+# Working directory
+
+# Staging area
+
+# Commit
+
+# Branch
+
+# Merge
+
+# Merge conflict
+
+# Remote
+
+# Push
+
+# Pull
+
+# Clone
+
+# Pull Request
+
+# .gitignore
+
+#
+
+#
+
+# Most importantly:
+
+#
+
+# Python Code
+
+# ↓
+
+# Test
+
+# ↓
+
+# Git Status
+
+# ↓
+
+# Git Diff
+
+# ↓
+
+# Git Add
+
+# ↓
+
+# Git Commit
+
+# ↓
+
+# Git Push
+
+# ↓
+
+# GitHub
+
+#
+
+# ============================================================

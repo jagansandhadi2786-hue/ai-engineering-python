@@ -1,0 +1,611 @@
+```python
+# ============================================================
+# PYTHON AI ENGINEERING
+# TOPIC: VIRTUAL ENVIRONMENTS
+# ============================================================
+#
+# 25 HANDS-ON EXERCISES
+#
+# IMPORTANT:
+# Some exercises use TERMINAL / POWERSHELL commands.
+# Those commands cannot be executed from this Python file.
+#
+# Practice the terminal commands separately, then record
+# your observations in this file.
+#
+# ============================================================
+
+
+# ============================================================
+# EXERCISE 01
+# Understand Virtual Environment
+# ============================================================
+
+# QUESTION:
+# What is a virtual environment?
+#
+# ANSWER:
+# A virtual environment creates an isolated Python environment
+# for a specific project.
+#
+# This allows each project to have its own Python packages
+# and package versions.
+
+
+# ============================================================
+# EXERCISE 02
+# Check Python Version
+# ============================================================
+
+# Run this in PowerShell / Terminal:
+#
+# python --version
+#
+# Alternative:
+#
+# python -V
+#
+# Example:
+# Python 3.13.x
+
+
+# ============================================================
+# EXERCISE 03
+# Check pip Version
+# ============================================================
+
+# pip is Python's package installer.
+#
+# Run:
+#
+# pip --version
+#
+# Better:
+#
+# python -m pip --version
+
+
+# ============================================================
+# EXERCISE 04
+# Create a Virtual Environment
+# ============================================================
+
+# Open PowerShell inside your project folder.
+#
+# Run:
+#
+# python -m venv .venv
+#
+# This creates:
+#
+# .venv/
+#     Scripts/
+#     Lib/
+#     Include/
+#
+# Do NOT manually edit files inside .venv.
+
+
+# ============================================================
+# EXERCISE 05
+# Activate Virtual Environment
+# ============================================================
+
+# Windows PowerShell:
+#
+# .\.venv\Scripts\Activate.ps1
+#
+# After activation you should see something similar to:
+#
+# (.venv) PS C:\Users\...\10-Virtual-Environment>
+#
+# The (.venv) indicates that the environment is active.
+
+
+# ============================================================
+# EXERCISE 06
+# Verify Python Location
+# ============================================================
+
+# Run:
+#
+# where python
+#
+# When the virtual environment is active,
+# Python should point to something similar to:
+#
+# ...\10-Virtual-Environment\.venv\Scripts\python.exe
+#
+# QUESTION:
+# Why is checking the Python location useful?
+#
+# ANSWER:
+# It confirms that the project is using the virtual environment
+# instead of the global Python installation.
+
+
+# ============================================================
+# EXERCISE 07
+# Verify pip Location
+# ============================================================
+
+# Run:
+#
+# where pip
+#
+# Expected:
+#
+# ...\.venv\Scripts\pip.exe
+#
+# This confirms that pip belongs to the virtual environment.
+
+
+# ============================================================
+# EXERCISE 08
+# Upgrade pip
+# ============================================================
+
+# Run:
+#
+# python -m pip install --upgrade pip
+#
+# Why use:
+#
+# python -m pip
+#
+# instead of simply:
+#
+# pip
+#
+# Because it makes it clear which Python installation's pip
+# you are using.
+
+
+# ============================================================
+# EXERCISE 09
+# Install Requests
+# ============================================================
+
+# Run:
+#
+# python -m pip install requests
+#
+# requests is commonly used for REST API communication.
+
+
+# ============================================================
+# EXERCISE 10
+# Display Installed Packages
+# ============================================================
+
+# Run:
+#
+# python -m pip list
+#
+# You should see packages such as:
+#
+# pip
+# requests
+# urllib3
+# certifi
+# charset-normalizer
+#
+# Note:
+# Requests installs some dependencies automatically.
+
+
+# ============================================================
+# EXERCISE 11
+# Show Package Information
+# ============================================================
+
+# Run:
+#
+# python -m pip show requests
+#
+# This displays information such as:
+#
+# Name
+# Version
+# Location
+# Requires
+#
+# QUESTION:
+# Why is "Location" useful?
+#
+# ANSWER:
+# It helps verify where the package was installed.
+
+
+# ============================================================
+# EXERCISE 12
+# Import Requests
+# ============================================================
+
+import requests
+
+print("Requests package imported successfully")
+
+
+# ============================================================
+# EXERCISE 13
+# Check Requests Version
+# ============================================================
+
+print("Requests version:", requests.__version__)
+
+
+# ============================================================
+# EXERCISE 14
+# Create a Simple API Request
+# ============================================================
+
+# This exercise connects virtual environments with REST APIs.
+
+url = "https://jsonplaceholder.typicode.com/users/1"
+
+response = requests.get(url)
+
+print("HTTP Status:", response.status_code)
+print("Response:", response.json())
+
+
+# ============================================================
+# EXERCISE 15
+# Create requirements.txt
+# ============================================================
+
+# Run:
+#
+# python -m pip freeze > requirements.txt
+#
+# This creates:
+#
+# requirements.txt
+#
+# Example content:
+#
+# requests==...
+# urllib3==...
+# certifi==...
+#
+# requirements.txt records project dependencies.
+
+
+# ============================================================
+# EXERCISE 16
+# Read requirements.txt
+# ============================================================
+
+# Open requirements.txt manually.
+#
+# QUESTION:
+# Why should requirements.txt be stored in the project?
+#
+# ANSWER:
+# It allows another developer or another environment
+# to install the same project dependencies.
+
+
+# ============================================================
+# EXERCISE 17
+# Install from requirements.txt
+# ============================================================
+
+# Run:
+#
+# python -m pip install -r requirements.txt
+#
+# This installs all packages listed in requirements.txt.
+
+
+# ============================================================
+# EXERCISE 18
+# Uninstall Requests
+# ============================================================
+
+# Run:
+#
+# python -m pip uninstall requests
+#
+# Type:
+#
+# y
+#
+# Then verify:
+#
+# python -m pip list
+#
+# Requests should no longer appear.
+
+
+# ============================================================
+# EXERCISE 19
+# Reinstall Requests
+# ============================================================
+
+# Run:
+#
+# python -m pip install requests
+#
+# Then test:
+#
+# import requests
+#
+# print(requests.__version__)
+
+
+# ============================================================
+# EXERCISE 20
+# Deactivate Environment
+# ============================================================
+
+# Run:
+#
+# deactivate
+#
+# The:
+#
+# (.venv)
+#
+# should disappear from your terminal.
+
+
+# ============================================================
+# EXERCISE 21
+# Reactivate Environment
+# ============================================================
+
+# Run:
+#
+# .\.venv\Scripts\Activate.ps1
+#
+# Verify:
+#
+# where python
+#
+# and:
+#
+# python -m pip list
+
+
+# ============================================================
+# EXERCISE 22
+# Create a Second Environment
+# ============================================================
+
+# Create another environment for practice:
+#
+# python -m venv .venv-test
+#
+# Activate:
+#
+# .\.venv-test\Scripts\Activate.ps1
+#
+# Check:
+#
+# python -m pip list
+#
+# QUESTION:
+# Is requests automatically available?
+#
+# ANSWER:
+# No.
+#
+# The second environment is isolated from the first one.
+
+
+# ============================================================
+# EXERCISE 23
+# Create .gitignore
+# ============================================================
+
+# Create a file named:
+#
+# .gitignore
+#
+# Add:
+#
+# .venv/
+# .venv-test/
+# __pycache__/
+# *.pyc
+#
+# QUESTION:
+# Why should .venv normally NOT be committed to Git?
+#
+# ANSWER:
+# The environment can be recreated from requirements.txt.
+#
+# The actual environment contains many generated files
+# and can be large.
+
+
+# ============================================================
+# EXERCISE 24
+# Troubleshooting Exercise
+# ============================================================
+
+# PROBLEM:
+#
+# Import "requests" could not be resolved
+#
+# Possible reason:
+#
+# VS Code may be using the wrong Python interpreter.
+#
+# Solution:
+#
+# 1. Activate .venv
+#
+# 2. Check:
+#
+#    where python
+#
+# 3. Install requests:
+#
+#    python -m pip install requests
+#
+# 4. In VS Code select:
+#
+#    Python: Select Interpreter
+#
+# 5. Select:
+#
+#    .venv\Scripts\python.exe
+#
+#
+# Another useful command:
+#
+# python -c "import requests; print(requests.__version__)"
+
+
+# ============================================================
+# EXERCISE 25
+# AI ENGINEERING MINI PROJECT
+# ============================================================
+
+# Goal:
+#
+# Build a small Python API client using:
+#
+# Python
+#   ↓
+# Virtual Environment
+#   ↓
+# Requests
+#   ↓
+# REST API
+#   ↓
+# JSON
+#
+# ------------------------------------------------------------
+# STEP 1
+# Create project:
+#
+# ai-api-client/
+#
+# ------------------------------------------------------------
+# STEP 2
+# Create environment:
+#
+# python -m venv .venv
+#
+# ------------------------------------------------------------
+# STEP 3
+# Activate:
+#
+# .\.venv\Scripts\Activate.ps1
+#
+# ------------------------------------------------------------
+# STEP 4
+# Install:
+#
+# python -m pip install requests
+#
+# ------------------------------------------------------------
+# STEP 5
+# Create requirements:
+#
+# python -m pip freeze > requirements.txt
+#
+# ------------------------------------------------------------
+# STEP 6
+# Create main.py
+#
+# ------------------------------------------------------------
+# STEP 7
+# Add this code:
+
+
+def get_user():
+
+    import requests
+
+    url = "https://jsonplaceholder.typicode.com/users/1"
+
+    response = requests.get(url)
+
+    if response.status_code == 200:
+
+        data = response.json()
+
+        print("User ID:", data["id"])
+        print("Name:", data["name"])
+        print("Email:", data["email"])
+
+        return data
+
+    else:
+
+        print("API request failed")
+        print("Status:", response.status_code)
+
+        return None
+
+
+# Run:
+#
+# get_user()
+
+
+# ============================================================
+# FINAL CHALLENGE
+# ============================================================
+
+# Build the following project structure:
+#
+# ai-api-client/
+#
+# ├── .venv/
+# ├── main.py
+# ├── requirements.txt
+# └── .gitignore
+#
+#
+# main.py should:
+#
+# 1. Import requests
+# 2. Call a REST API
+# 3. Check HTTP status code
+# 4. Convert response to JSON
+# 5. Read JSON fields
+# 6. Print the result
+#
+#
+# requirements.txt should contain requests.
+#
+# .gitignore should contain:
+#
+# .venv/
+# __pycache__/
+# *.pyc
+#
+#
+# ============================================================
+# AI ENGINEERING SKILL CHAIN
+# ============================================================
+#
+# Virtual Environment
+#        ↓
+# Python
+#        ↓
+# Requests
+#        ↓
+# REST API
+#        ↓
+# JSON
+#        ↓
+# Pydantic
+#        ↓
+# FastAPI
+#        ↓
+# Database
+#        ↓
+# GenAI / LLM
+#        ↓
+# RAG
+#        ↓
+# AI Agents
+#
+# ============================================================

@@ -1,0 +1,959 @@
+# ============================================================
+# PYTHON FUNDAMENTALS - BASIC SQL
+# ============================================================
+# 25 HANDS-ON EXERCISES
+#
+# Goal:
+# Python -> SQL -> Database
+#
+# Database:
+# SQLite
+#
+# You can open the generated .db file using:
+# DBeaver / DB Browser for SQLite
+#
+# ============================================================
+
+
+import sqlite3
+
+
+# ============================================================
+# EXERCISE 1 - CONNECT TO SQLITE DATABASE
+# ============================================================
+#
+# THEORY:
+#
+# sqlite3.connect() creates a connection to a SQLite database.
+#
+# If the database file does not exist, SQLite creates it.
+#
+# Example:
+#
+# connection = sqlite3.connect("customers.db")
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 1 - DATABASE CONNECTION")
+print("=" * 70)
+
+connection = sqlite3.connect("customers.db")
+
+print("Connected to SQLite database successfully")
+
+
+# ============================================================
+# EXERCISE 2 - CREATE A TABLE
+# ============================================================
+#
+# THEORY:
+#
+# CREATE TABLE creates a new database table.
+#
+# PRIMARY KEY uniquely identifies each row.
+#
+# TEXT stores text.
+# INTEGER stores whole numbers.
+# REAL stores decimal numbers.
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 2 - CREATE TABLE")
+print("=" * 70)
+
+cursor = connection.cursor()
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS customers (
+    customer_id INTEGER PRIMARY KEY,
+    name TEXT,
+    email TEXT,
+    city TEXT,
+    age INTEGER
+)
+""")
+
+connection.commit()
+
+print("Customers table created")
+
+
+# ============================================================
+# EXERCISE 3 - INSERT DATA
+# ============================================================
+#
+# THEORY:
+#
+# INSERT INTO adds new records to a table.
+#
+# Always prefer ? placeholders instead of building SQL strings
+# manually.
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 3 - INSERT DATA")
+print("=" * 70)
+
+customers = [
+    (1, "Jagan", "jagan@example.com", "Hyderabad", 30),
+    (2, "Ravi", "ravi@example.com", "Bangalore", 28),
+    (3, "Priya", "priya@example.com", "Chennai", 26),
+    (4, "Anita", "anita@example.com", "Hyderabad", 32),
+    (5, "Rahul", "rahul@example.com", "Mumbai", 35),
+]
+
+cursor.executemany("""
+INSERT OR IGNORE INTO customers
+(customer_id, name, email, city, age)
+VALUES (?, ?, ?, ?, ?)
+""", customers)
+
+connection.commit()
+
+print("Customer records inserted")
+
+
+# ============================================================
+# EXERCISE 4 - SELECT ALL RECORDS
+# ============================================================
+#
+# THEORY:
+#
+# SELECT retrieves data from a table.
+#
+# SELECT * means:
+# "Return all columns."
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 4 - SELECT ALL CUSTOMERS")
+print("=" * 70)
+
+cursor.execute("""
+SELECT * FROM customers
+""")
+
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+
+
+# ============================================================
+# EXERCISE 5 - WHERE
+# ============================================================
+#
+# THEORY:
+#
+# WHERE filters records.
+#
+# Example:
+#
+# SELECT * FROM customers
+# WHERE city = 'Hyderabad'
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 5 - WHERE")
+print("=" * 70)
+
+cursor.execute("""
+SELECT *
+FROM customers
+WHERE city = ?
+""", ("Hyderabad",))
+
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+
+
+# ============================================================
+# EXERCISE 6 - COMPARISON OPERATORS
+# ============================================================
+#
+# THEORY:
+#
+# SQL comparison operators:
+#
+# =       equal
+# >       greater than
+# <       less than
+# >=      greater than or equal
+# <=      less than or equal
+# !=      not equal
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 6 - COMPARISON OPERATORS")
+print("=" * 70)
+
+cursor.execute("""
+SELECT name, age
+FROM customers
+WHERE age >= ?
+""", (30,))
+
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+
+
+# ============================================================
+# EXERCISE 7 - AND / OR
+# ============================================================
+#
+# THEORY:
+#
+# AND:
+# Both conditions must be true.
+#
+# OR:
+# At least one condition must be true.
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 7 - AND / OR")
+print("=" * 70)
+
+cursor.execute("""
+SELECT name, city, age
+FROM customers
+WHERE city = ?
+AND age >= ?
+""", ("Hyderabad", 30))
+
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+
+
+# ============================================================
+# EXERCISE 8 - ORDER BY
+# ============================================================
+#
+# THEORY:
+#
+# ORDER BY sorts results.
+#
+# ASC  = ascending
+# DESC = descending
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 8 - ORDER BY")
+print("=" * 70)
+
+cursor.execute("""
+SELECT name, age
+FROM customers
+ORDER BY age DESC
+""")
+
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+
+
+# ============================================================
+# EXERCISE 9 - LIMIT
+# ============================================================
+#
+# THEORY:
+#
+# LIMIT restricts the number of returned rows.
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 9 - LIMIT")
+print("=" * 70)
+
+cursor.execute("""
+SELECT *
+FROM customers
+ORDER BY age DESC
+LIMIT 3
+""")
+
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+
+
+# ============================================================
+# EXERCISE 10 - UPDATE
+# ============================================================
+#
+# THEORY:
+#
+# UPDATE changes existing records.
+#
+# Example:
+#
+# UPDATE customers
+# SET city = 'Delhi'
+# WHERE customer_id = 5
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 10 - UPDATE")
+print("=" * 70)
+
+cursor.execute("""
+UPDATE customers
+SET city = ?
+WHERE customer_id = ?
+""", ("Delhi", 5))
+
+connection.commit()
+
+print("Customer updated")
+
+
+# ============================================================
+# EXERCISE 11 - DELETE
+# ============================================================
+#
+# THEORY:
+#
+# DELETE removes records.
+#
+# IMPORTANT:
+#
+# Always use WHERE unless you intentionally want to delete
+# every record.
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 11 - DELETE")
+print("=" * 70)
+
+cursor.execute("""
+DELETE FROM customers
+WHERE customer_id = ?
+""", (5,))
+
+connection.commit()
+
+print("Customer deleted")
+
+
+# ============================================================
+# EXERCISE 12 - COUNT
+# ============================================================
+#
+# THEORY:
+#
+# COUNT() counts records.
+#
+# Example:
+#
+# SELECT COUNT(*) FROM customers
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 12 - COUNT")
+print("=" * 70)
+
+cursor.execute("""
+SELECT COUNT(*)
+FROM customers
+""")
+
+count = cursor.fetchone()[0]
+
+print("Total customers:", count)
+
+
+# ============================================================
+# EXERCISE 13 - SUM
+# ============================================================
+#
+# THEORY:
+#
+# SUM() calculates the total of numeric values.
+#
+# We need an orders table for this exercise.
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 13 - SUM")
+print("=" * 70)
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS orders (
+    order_id INTEGER PRIMARY KEY,
+    customer_id INTEGER,
+    product TEXT,
+    amount REAL,
+    status TEXT
+)
+""")
+
+orders = [
+    (101, 1, "Laptop", 80000, "Completed"),
+    (102, 1, "Mouse", 1500, "Completed"),
+    (103, 2, "Keyboard", 3000, "Pending"),
+    (104, 3, "Monitor", 20000, "Completed"),
+    (105, 4, "Laptop", 75000, "Completed"),
+]
+
+cursor.executemany("""
+INSERT OR IGNORE INTO orders
+(order_id, customer_id, product, amount, status)
+VALUES (?, ?, ?, ?, ?)
+""", orders)
+
+connection.commit()
+
+cursor.execute("""
+SELECT SUM(amount)
+FROM orders
+""")
+
+total = cursor.fetchone()[0]
+
+print("Total order amount:", total)
+
+
+# ============================================================
+# EXERCISE 14 - AVG
+# ============================================================
+#
+# THEORY:
+#
+# AVG() calculates the average value.
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 14 - AVG")
+print("=" * 70)
+
+cursor.execute("""
+SELECT AVG(amount)
+FROM orders
+""")
+
+average = cursor.fetchone()[0]
+
+print("Average order amount:", average)
+
+
+# ============================================================
+# EXERCISE 15 - MIN / MAX
+# ============================================================
+#
+# THEORY:
+#
+# MIN() finds the smallest value.
+#
+# MAX() finds the largest value.
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 15 - MIN / MAX")
+print("=" * 70)
+
+cursor.execute("""
+SELECT MIN(amount), MAX(amount)
+FROM orders
+""")
+
+minimum, maximum = cursor.fetchone()
+
+print("Minimum order:", minimum)
+print("Maximum order:", maximum)
+
+
+# ============================================================
+# EXERCISE 16 - LIKE
+# ============================================================
+#
+# THEORY:
+#
+# LIKE searches for patterns.
+#
+# % means any number of characters.
+#
+# Example:
+#
+# 'J%' means starts with J.
+#
+# '%an%' means contains "an".
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 16 - LIKE")
+print("=" * 70)
+
+cursor.execute("""
+SELECT name
+FROM customers
+WHERE name LIKE ?
+""", ("J%",))
+
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+
+
+# ============================================================
+# EXERCISE 17 - IN
+# ============================================================
+#
+# THEORY:
+#
+# IN allows you to match multiple values.
+#
+# Example:
+#
+# WHERE city IN ('Hyderabad', 'Bangalore')
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 17 - IN")
+print("=" * 70)
+
+cursor.execute("""
+SELECT name, city
+FROM customers
+WHERE city IN (?, ?)
+""", ("Hyderabad", "Bangalore"))
+
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+
+
+# ============================================================
+# EXERCISE 18 - BETWEEN
+# ============================================================
+#
+# THEORY:
+#
+# BETWEEN searches within a range.
+#
+# Example:
+#
+# WHERE age BETWEEN 25 AND 35
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 18 - BETWEEN")
+print("=" * 70)
+
+cursor.execute("""
+SELECT name, age
+FROM customers
+WHERE age BETWEEN ? AND ?
+""", (25, 35))
+
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+
+
+# ============================================================
+# EXERCISE 19 - DISTINCT
+# ============================================================
+#
+# THEORY:
+#
+# DISTINCT removes duplicate values from the result.
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 19 - DISTINCT")
+print("=" * 70)
+
+cursor.execute("""
+SELECT DISTINCT city
+FROM customers
+""")
+
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+
+
+# ============================================================
+# EXERCISE 20 - GROUP BY
+# ============================================================
+#
+# THEORY:
+#
+# GROUP BY groups records with the same value.
+#
+# Example:
+#
+# Number of customers per city.
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 20 - GROUP BY")
+print("=" * 70)
+
+cursor.execute("""
+SELECT city, COUNT(*)
+FROM customers
+GROUP BY city
+""")
+
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+
+
+# ============================================================
+# EXERCISE 21 - HAVING
+# ============================================================
+#
+# THEORY:
+#
+# WHERE filters individual records.
+#
+# HAVING filters grouped results.
+#
+# Example:
+#
+# Find cities having more than one customer.
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 21 - HAVING")
+print("=" * 70)
+
+cursor.execute("""
+SELECT city, COUNT(*)
+FROM customers
+GROUP BY city
+HAVING COUNT(*) > 1
+""")
+
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+
+
+# ============================================================
+# EXERCISE 22 - INNER JOIN
+# ============================================================
+#
+# THEORY:
+#
+# JOIN combines data from multiple tables.
+#
+# INNER JOIN returns matching records from both tables.
+#
+# Here:
+#
+# customers.customer_id
+#         =
+# orders.customer_id
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 22 - INNER JOIN")
+print("=" * 70)
+
+cursor.execute("""
+SELECT
+    customers.name,
+    orders.product,
+    orders.amount
+FROM customers
+INNER JOIN orders
+ON customers.customer_id = orders.customer_id
+""")
+
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+
+
+# ============================================================
+# EXERCISE 23 - LEFT JOIN
+# ============================================================
+#
+# THEORY:
+#
+# LEFT JOIN returns every record from the left table,
+# even if there is no matching record in the right table.
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 23 - LEFT JOIN")
+print("=" * 70)
+
+cursor.execute("""
+SELECT
+    customers.name,
+    orders.product,
+    orders.amount
+FROM customers
+LEFT JOIN orders
+ON customers.customer_id = orders.customer_id
+""")
+
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+
+
+# ============================================================
+# EXERCISE 24 - PYTHON + SQL
+# ============================================================
+#
+# THEORY:
+#
+# Python can execute SQL queries using sqlite3.
+#
+# This is very important for AI engineering because applications
+# often need:
+#
+# Python
+#    |
+#    v
+# SQL
+#    |
+#    v
+# Database
+#    |
+#    v
+# JSON / API Response
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 24 - PYTHON + SQL")
+print("=" * 70)
+
+
+def get_customers():
+    cursor.execute("""
+    SELECT customer_id, name, email, city, age
+    FROM customers
+    """)
+
+    rows = cursor.fetchall()
+
+    return rows
+
+
+customers_from_db = get_customers()
+
+for customer in customers_from_db:
+    print(customer)
+
+
+# ============================================================
+# EXERCISE 25 - MINI PROJECT
+# ============================================================
+#
+# CUSTOMER ORDER DATABASE
+#
+# Requirements:
+#
+# 1. Display all customers
+# 2. Display all orders
+# 3. Display customer + order information
+# 4. Calculate total sales
+# 5. Calculate average order value
+# 6. Find completed orders
+# 7. Find customers from Hyderabad
+# 8. Find highest-value order
+#
+# ============================================================
+
+print("\n" + "=" * 70)
+print("EXERCISE 25 - CUSTOMER ORDER MINI PROJECT")
+print("=" * 70)
+
+
+# ------------------------------------------------------------
+# 25.1 - Display all customers
+# ------------------------------------------------------------
+
+print("\n--- ALL CUSTOMERS ---")
+
+cursor.execute("""
+SELECT *
+FROM customers
+""")
+
+for row in cursor.fetchall():
+    print(row)
+
+
+# ------------------------------------------------------------
+# 25.2 - Display all orders
+# ------------------------------------------------------------
+
+print("\n--- ALL ORDERS ---")
+
+cursor.execute("""
+SELECT *
+FROM orders
+""")
+
+for row in cursor.fetchall():
+    print(row)
+
+
+# ------------------------------------------------------------
+# 25.3 - Customer + Order Information
+# ------------------------------------------------------------
+
+print("\n--- CUSTOMER ORDERS ---")
+
+cursor.execute("""
+SELECT
+    customers.name,
+    customers.city,
+    orders.product,
+    orders.amount,
+    orders.status
+FROM customers
+INNER JOIN orders
+ON customers.customer_id = orders.customer_id
+""")
+
+for row in cursor.fetchall():
+    print(row)
+
+
+# ------------------------------------------------------------
+# 25.4 - Total Sales
+# ------------------------------------------------------------
+
+print("\n--- TOTAL SALES ---")
+
+cursor.execute("""
+SELECT SUM(amount)
+FROM orders
+""")
+
+total_sales = cursor.fetchone()[0]
+
+print("Total sales:", total_sales)
+
+
+# ------------------------------------------------------------
+# 25.5 - Average Order Value
+# ------------------------------------------------------------
+
+print("\n--- AVERAGE ORDER VALUE ---")
+
+cursor.execute("""
+SELECT AVG(amount)
+FROM orders
+""")
+
+average_order = cursor.fetchone()[0]
+
+print("Average order value:", average_order)
+
+
+# ------------------------------------------------------------
+# 25.6 - Completed Orders
+# ------------------------------------------------------------
+
+print("\n--- COMPLETED ORDERS ---")
+
+cursor.execute("""
+SELECT *
+FROM orders
+WHERE status = ?
+""", ("Completed",))
+
+for row in cursor.fetchall():
+    print(row)
+
+
+# ------------------------------------------------------------
+# 25.7 - Hyderabad Customers
+# ------------------------------------------------------------
+
+print("\n--- HYDERABAD CUSTOMERS ---")
+
+cursor.execute("""
+SELECT name, email
+FROM customers
+WHERE city = ?
+""", ("Hyderabad",))
+
+for row in cursor.fetchall():
+    print(row)
+
+
+# ------------------------------------------------------------
+# 25.8 - Highest Value Order
+# ------------------------------------------------------------
+
+print("\n--- HIGHEST VALUE ORDER ---")
+
+cursor.execute("""
+SELECT *
+FROM orders
+ORDER BY amount DESC
+LIMIT 1
+""")
+
+highest_order = cursor.fetchone()
+
+print(highest_order)
+
+
+# ============================================================
+# CLOSE DATABASE CONNECTION
+# ============================================================
+#
+# THEORY:
+#
+# Always close the database connection when finished.
+#
+# ============================================================
+
+connection.close()
+
+print("\n" + "=" * 70)
+print("DATABASE CONNECTION CLOSED")
+print("=" * 70)
+
+print("\nBasic SQL exercises completed successfully!")
