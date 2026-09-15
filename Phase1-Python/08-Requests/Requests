@@ -83,7 +83,7 @@ print("EXERCISE 02 - REQUESTS VERSION")
 print("=" * 60)
 
 print("Requests version:",
-      requests.__version__)
+      requests.__version__) # type: ignore
 
 
 # ============================================================

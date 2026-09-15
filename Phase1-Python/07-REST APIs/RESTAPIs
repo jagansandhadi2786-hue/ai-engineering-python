@@ -1,4 +1,3 @@
-```python
 # ============================================================
 # PYTHON FUNDAMENTALS - REST APIs
 # ============================================================
@@ -961,4 +960,3 @@ You practiced:
 print("=" * 60)
 print("PYTHON -> REST API -> JSON PRACTICE COMPLETE")
 print("=" * 60)
-```

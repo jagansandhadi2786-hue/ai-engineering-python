@@ -23,5 +23,3 @@
 | 21 | HAVING               | Filter groups             |
 | 22 | INNER JOIN           | Combine tables            |
 | 23 | LEFT JOIN            | Keep unmatched records    |
-| 24 | Python + SQL         | Execute SQL from Python   |
-| 25 | Mini project         | Customer Order Database   |

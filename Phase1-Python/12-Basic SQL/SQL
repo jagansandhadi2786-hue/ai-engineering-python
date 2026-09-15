@@ -944,9 +944,7 @@ print(highest_order)
 # CLOSE DATABASE CONNECTION
 # ============================================================
 #
-# THEORY:
-#
-# Always close the database connection when finished.
+# THEORY:Always close the database connection when finished.
 #
 # ============================================================
 

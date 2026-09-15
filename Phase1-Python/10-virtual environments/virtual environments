@@ -1,10 +1,7 @@
-```python
 # ============================================================
 # PYTHON AI ENGINEERING
 # TOPIC: VIRTUAL ENVIRONMENTS
 # ============================================================
-#
-# 25 HANDS-ON EXERCISES
 #
 # IMPORTANT:
 # Some exercises use TERMINAL / POWERSHELL commands.
@@ -17,64 +14,45 @@
 
 
 # ============================================================
-# EXERCISE 01
-# Understand Virtual Environment
+# EXERCISE 01 - Understand Virtual Environment
 # ============================================================
 
-# QUESTION:
-# What is a virtual environment?
-#
-# ANSWER:
-# A virtual environment creates an isolated Python environment
+# QUESTION:What is a virtual environment?
+# ANSWER:A virtual environment creates an isolated Python environment
 # for a specific project.
 #
-# This allows each project to have its own Python packages
-# and package versions.
+# This allows each project to have its own Python packages and package versions.
 
 
 # ============================================================
-# EXERCISE 02
-# Check Python Version
+# EXERCISE 02 - Check Python Version
 # ============================================================
 
-# Run this in PowerShell / Terminal:
+# Run this in PowerShell / Terminal:python --version
 #
-# python --version
+# Alternative:python -V
 #
-# Alternative:
-#
-# python -V
-#
-# Example:
-# Python 3.13.x
+# Example: Python 3.13.x
 
 
 # ============================================================
-# EXERCISE 03
-# Check pip Version
+# EXERCISE 03 - Check pip Version
 # ============================================================
 
 # pip is Python's package installer.
 #
-# Run:
+# Run:pip --version
 #
-# pip --version
-#
-# Better:
-#
-# python -m pip --version
+# Better:python -m pip --version
 
 
 # ============================================================
-# EXERCISE 04
-# Create a Virtual Environment
+# EXERCISE 04- Create a Virtual Environment
 # ============================================================
 
 # Open PowerShell inside your project folder.
 #
-# Run:
-#
-# python -m venv .venv
+# Run:python -m venv .venv
 #
 # This creates:
 #
@@ -87,13 +65,10 @@
 
 
 # ============================================================
-# EXERCISE 05
-# Activate Virtual Environment
+# EXERCISE 05 - Activate Virtual Environment
 # ============================================================
 
-# Windows PowerShell:
-#
-# .\.venv\Scripts\Activate.ps1
+# Windows PowerShell:.\.venv\Scripts\Activate.ps1
 #
 # After activation you should see something similar to:
 #
@@ -103,13 +78,10 @@
 
 
 # ============================================================
-# EXERCISE 06
-# Verify Python Location
+# EXERCISE 06-Verify Python Location
 # ============================================================
 
-# Run:
-#
-# where python
+# Run: where python
 #
 # When the virtual environment is active,
 # Python should point to something similar to:
@@ -125,62 +97,43 @@
 
 
 # ============================================================
-# EXERCISE 07
-# Verify pip Location
+# EXERCISE 07-Verify pip Location
 # ============================================================
 
-# Run:
+# Run:where pip
 #
-# where pip
-#
-# Expected:
-#
-# ...\.venv\Scripts\pip.exe
+# Expected:...\.venv\Scripts\pip.exe
 #
 # This confirms that pip belongs to the virtual environment.
 
 
 # ============================================================
-# EXERCISE 08
-# Upgrade pip
+# EXERCISE 08 -Upgrade pip
 # ============================================================
 
-# Run:
+# Run:python -m pip install --upgrade pip
 #
-# python -m pip install --upgrade pip
+# Why use:python -m pip
 #
-# Why use:
+# instead of simply:pip
 #
-# python -m pip
-#
-# instead of simply:
-#
-# pip
-#
-# Because it makes it clear which Python installation's pip
-# you are using.
+# Because it makes it clear which Python installation's pip you are using.
 
 
 # ============================================================
-# EXERCISE 09
-# Install Requests
+# EXERCISE 09-Install Requests
 # ============================================================
 
-# Run:
-#
-# python -m pip install requests
+# Run:python -m pip install requests
 #
 # requests is commonly used for REST API communication.
 
 
 # ============================================================
-# EXERCISE 10
-# Display Installed Packages
+# EXERCISE 10-Display Installed Packages
 # ============================================================
 
-# Run:
-#
-# python -m pip list
+# Run:python -m pip list
 #
 # You should see packages such as:
 #
@@ -190,18 +143,14 @@
 # certifi
 # charset-normalizer
 #
-# Note:
-# Requests installs some dependencies automatically.
+# Note:Requests installs some dependencies automatically.
 
 
 # ============================================================
-# EXERCISE 11
-# Show Package Information
+# EXERCISE 11-Show Package Information
 # ============================================================
 
-# Run:
-#
-# python -m pip show requests
+# Run:python -m pip show requests
 #
 # This displays information such as:
 #
@@ -210,34 +159,27 @@
 # Location
 # Requires
 #
-# QUESTION:
-# Why is "Location" useful?
+# QUESTION:Why is "Location" useful?
 #
-# ANSWER:
-# It helps verify where the package was installed.
+# ANSWER:It helps verify where the package was installed.
 
 
 # ============================================================
-# EXERCISE 12
-# Import Requests
+# EXERCISE 12-Import Requests
 # ============================================================
 
 import requests
 
 print("Requests package imported successfully")
 
-
 # ============================================================
-# EXERCISE 13
-# Check Requests Version
+# EXERCISE 13-Check Requests Version
 # ============================================================
 
-print("Requests version:", requests.__version__)
-
+print("Requests version:", requests.__version__) # type: ignore
 
 # ============================================================
-# EXERCISE 14
-# Create a Simple API Request
+# EXERCISE 14-Create a Simple API Request
 # ============================================================
 
 # This exercise connects virtual environments with REST APIs.
@@ -245,23 +187,16 @@ print("Requests version:", requests.__version__)
 url = "https://jsonplaceholder.typicode.com/users/1"
 
 response = requests.get(url)
-
 print("HTTP Status:", response.status_code)
 print("Response:", response.json())
 
-
 # ============================================================
-# EXERCISE 15
-# Create requirements.txt
+# EXERCISE 15-Create requirements.txt
 # ============================================================
 
-# Run:
+# Run:python -m pip freeze > requirements.txt
 #
-# python -m pip freeze > requirements.txt
-#
-# This creates:
-#
-# requirements.txt
+# This creates:requirements.txt
 #
 # Example content:
 #
@@ -273,8 +208,7 @@ print("Response:", response.json())
 
 
 # ============================================================
-# EXERCISE 16
-# Read requirements.txt
+# EXERCISE 16-Read requirements.txt
 # ============================================================
 
 # Open requirements.txt manually.
@@ -288,45 +222,32 @@ print("Response:", response.json())
 
 
 # ============================================================
-# EXERCISE 17
-# Install from requirements.txt
+# EXERCISE 17-Install from requirements.txt
 # ============================================================
 
-# Run:
-#
-# python -m pip install -r requirements.txt
+# Run:python -m pip install -r requirements.txt
 #
 # This installs all packages listed in requirements.txt.
 
 
 # ============================================================
-# EXERCISE 18
-# Uninstall Requests
+# EXERCISE 18-Uninstall Requests
 # ============================================================
 
-# Run:
+# Run:python -m pip uninstall requests
 #
-# python -m pip uninstall requests
+# Type:y
 #
-# Type:
-#
-# y
-#
-# Then verify:
-#
-# python -m pip list
+# Then verify:python -m pip list
 #
 # Requests should no longer appear.
 
 
 # ============================================================
-# EXERCISE 19
-# Reinstall Requests
+# EXERCISE 19-Reinstall Requests
 # ============================================================
 
-# Run:
-#
-# python -m pip install requests
+# Run:python -m pip install requests
 #
 # Then test:
 #
@@ -336,13 +257,10 @@ print("Response:", response.json())
 
 
 # ============================================================
-# EXERCISE 20
-# Deactivate Environment
+# EXERCISE 20-Deactivate Environment
 # ============================================================
 
-# Run:
-#
-# deactivate
+# Run:deactivate
 #
 # The:
 #
@@ -352,17 +270,12 @@ print("Response:", response.json())
 
 
 # ============================================================
-# EXERCISE 21
-# Reactivate Environment
+# EXERCISE 21-Reactivate Environment
 # ============================================================
 
-# Run:
+# Run:.\.venv\Scripts\Activate.ps1
 #
-# .\.venv\Scripts\Activate.ps1
-#
-# Verify:
-#
-# where python
+# Verify:where python
 #
 # and:
 #
@@ -370,8 +283,7 @@ print("Response:", response.json())
 
 
 # ============================================================
-# EXERCISE 22
-# Create a Second Environment
+# EXERCISE 22-Create a Second Environment
 # ============================================================
 
 # Create another environment for practice:
@@ -396,8 +308,7 @@ print("Response:", response.json())
 
 
 # ============================================================
-# EXERCISE 23
-# Create .gitignore
+# EXERCISE 23-Create .gitignore
 # ============================================================
 
 # Create a file named:
@@ -422,8 +333,7 @@ print("Response:", response.json())
 
 
 # ============================================================
-# EXERCISE 24
-# Troubleshooting Exercise
+# EXERCISE 24-Troubleshooting Exercise
 # ============================================================
 
 # PROBLEM:
@@ -461,8 +371,7 @@ print("Response:", response.json())
 
 
 # ============================================================
-# EXERCISE 25
-# AI ENGINEERING MINI PROJECT
+# EXERCISE 25-AI ENGINEERING MINI PROJECT
 # ============================================================
 
 # Goal:

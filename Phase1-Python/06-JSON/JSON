@@ -19,7 +19,6 @@
 
 import json
 
-
 print("\n========== EXERCISE 01 ==========")
 print("JSON module imported successfully")
 
