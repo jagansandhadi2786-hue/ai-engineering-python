@@ -1,6 +1,18 @@
-# ==========================================
-# 02 - Python Data Types
-# ==========================================
+# ============================================================
+# PYTHON FUNDAMENTALS - 02_Data Types
+# ============================================================
+#Topics:04 - Data Types
+#
+# Practice:
+# - String
+# - Integer
+# - Float
+# - Boolean
+# - List
+# - Tuple
+# - Set
+# - Dictionary
+# ============================================================
 
 # 1. STRING-A str stores text.
 name = "Jagan"
@@ -11,7 +23,6 @@ print("Name:", name)
 print("Role:", role)
 print("model_name:", model_name)
 print("Type:", type(name))
-
 
 # 2. INTEGER-An int stores whole numbers.
 age = 30
@@ -24,7 +35,6 @@ print("Experience:", experience)
 print("Max Tokens:", max_tokens)
 print("user_count:", user_count)
 print("Type:", type(age))
-
 
 # 3. FLOAT-A float stores numbers containing decimals.
 price = 100.50
@@ -71,7 +81,8 @@ skills = {"Python", "AI", "Python", "FastAPI"}
 print("Skills:", skills)
 print("Type:", type(skills))
 
-# 8. DICTIONARY-Dictionary - This is one of the most important Python data types for AI engineering. A dictionary stores:key → value
+# 8. DICTIONARY-Dictionary - 
+# This is one of the most important Python data types for AI engineering. A dictionary stores:key → value
 # because JSON looks almost exactly like Python dictionaries.
 
 user = {

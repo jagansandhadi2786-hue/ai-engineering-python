@@ -1,8 +1,7 @@
 # ============================================================
 # PYTHON FUNDAMENTALS - 04_OPERATORS
 # ============================================================
-#Topics:
-# 04 - Operators
+#Topics:04 - Operators
 #
 # Practice:
 # - Arithmetic operators
@@ -28,7 +27,6 @@ result = number1 + number2
 
 print("Result:", result)
 
-
 # ------------------------------------------------------------
 # Exercise 7 - Calculate total price
 # ------------------------------------------------------------
@@ -42,7 +40,6 @@ total = price * quantity
 
 print("Total price:", total)
 
-
 # ------------------------------------------------------------
 # Exercise 8 - Calculate age next year
 # ------------------------------------------------------------
@@ -54,7 +51,6 @@ current_age = int(input("Enter your current age: "))
 next_year_age = current_age + 1
 
 print("Next year you will be:", next_year_age)
-
 
 # ------------------------------------------------------------
 # Exercise 9 - User profile
@@ -70,7 +66,6 @@ print("\nProfile")
 print("Name:", user_name)
 print("Current Role:", user_role)
 print("Target Role:", target_role)
-
 
 # ------------------------------------------------------------
 # Exercise 10 - Convert string input to numbers
@@ -94,7 +89,6 @@ print("Sum:", num1 + num2)
 print("\n" + "=" * 60)
 print("TOPIC 04 - OPERATORS")
 print("=" * 60)
-
 
 # ============================================================
 # 1. ARITHMETIC OPERATORS
@@ -136,7 +130,6 @@ if b != 0:
 else:
     print("Cannot divide by zero")
 
-
 # ============================================================
 # 2. COMPARISON OPERATORS
 # ============================================================
@@ -152,7 +145,6 @@ print("x > y:", x > y)
 print("x < y:", x < y)
 print("x >= y:", x >= y)
 print("x <= y:", x <= y)
-
 
 # ------------------------------------------------------------
 # Exercise 12 - Age comparison
@@ -176,7 +168,6 @@ password = input("Enter password: ")
 
 print("Password length:", len(password))
 print("Password has 8+ characters:", len(password) >= 8)
-
 
 # ============================================================
 # 3. LOGICAL OPERATORS

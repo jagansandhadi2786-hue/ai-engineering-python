@@ -201,6 +201,7 @@
 # |        | Performance                 | Conditional logic                                      |
 # |        | Total salary                | Calculation                                            |
 # |        | Salary category             | Decision-making                                        |
+
 # | **25** | **Final Challenge**         | Combine Python fundamentals into one practical project |
 # |        | Variables                   | Store application data                                 |
 # |        | Data types                  | Use appropriate data                                   |
@@ -214,3 +215,4 @@
 # |        | Functions                   | Create reusable logic                                  |
 # |        | Boolean logic               | Build complex decisions                                |
 # |        | Mini-project                | Build a complete Python application                    |
+

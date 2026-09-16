@@ -1,0 +1,1011 @@
+
+# ============================================================
+# PHASE 2 — BACKEND / API DEVELOPMENT
+# ============================================================
+#
+# Goal:Build practical backend APIs for AI Engineering using FastAPI.
+#
+# Topics:
+# 01. REST API fundamentals
+# 02. HTTP
+# 03. FastAPI basics
+# 04. Path parameters
+# 05. Query parameters
+# 06. POST requests
+# 07. Pydantic request validation
+# 08. Response models
+# 09. HTTP status codes
+# 10. Error handling
+# 11. CRUD APIs
+# 12. Dependency Injection
+# 13. Async APIs
+# 14. Authentication concepts
+# 15. OAuth2
+# 16. JWT
+# 17. Protected APIs
+# 18. API validation
+# 19. File upload
+# 20. POST /chat
+# 21. POST /documents
+# 22. GET /documents
+# 23. POST /ask
+# 24. OpenAPI / Swagger / ReDoc
+# 25. Final AI Backend API
+#
+# Run:uvicorn main:app --reload
+#
+# Swagger:http://127.0.0.1:8000/docs
+#
+# ReDoc:http://127.0.0.1:8000/redoc
+#
+# ============================================================
+
+
+# ============================================================
+# INSTALLATION
+# ============================================================
+#
+# Create virtual environment:
+#
+# python -m venv .venv
+#
+# Activate:
+#
+# .\.venv\Scripts\Activate.ps1
+#
+# Install:
+#
+# pip install fastapi uvicorn python-multipart
+#
+# JWT:
+#
+# pip install python-jose[cryptography]
+#
+# ============================================================
+
+
+from fastapi import (
+    FastAPI,
+    HTTPException,
+    Depends,
+    status,
+    UploadFile,
+    File,
+    Query,
+    Path,
+)
+from fastapi.security import OAuth2PasswordBearer
+from pydantic import BaseModel, Field, EmailStr
+from typing import Optional
+from datetime import datetime, timedelta, timezone
+from jose import jwt, JWTError
+
+
+# ============================================================
+# APPLICATION
+# ============================================================
+
+app = FastAPI(
+    title="AI Engineering Backend API",
+    description="Phase 2 FastAPI hands-on practice",
+    version="1.0.0",
+)
+
+
+# ============================================================
+# EXERCISE 01 — FIRST FASTAPI APPLICATION
+# ============================================================
+#
+# Concept:FastAPI creates HTTP APIs using Python.
+#
+# Exercise:Create a simple GET endpoint.
+#
+# Test:GET /
+#
+# ============================================================
+
+@app.get("/")
+def home():
+    return {
+        "message": "Welcome to AI Engineering Backend API"
+    }
+
+# ============================================================
+# EXERCISE 02 — BASIC GET API
+# ============================================================
+#
+# Exercise:Create a GET /hello endpoint.
+#
+# ============================================================
+
+
+@app.get("/hello")
+def hello():
+    return {
+        "message": "Hello from FastAPI"
+    }
+
+# ============================================================
+# EXERCISE 03 — PATH PARAMETERS
+# ============================================================
+#
+# Example:GET /users/101
+#
+# ============================================================
+
+@app.get("/users/{user_id}")
+def get_user(user_id: int):
+
+    return {
+        "user_id": user_id
+    }
+
+
+# ============================================================
+# EXERCISE 04 — QUERY PARAMETERS
+# ============================================================
+#
+# Example:
+#
+# GET /search?name=Jagan
+#
+# GET /search?name=Jagan&role=AI%20Engineer
+#
+# ============================================================
+
+
+@app.get("/search")
+def search_users(
+    name: str,
+    role: Optional[str] = None,
+):
+
+    return {
+        "name": name,
+        "role": role,
+    }
+
+# ============================================================
+# EXERCISE 05 — POST API
+# ============================================================
+#
+# Create a simple POST API.
+#
+# ============================================================
+
+
+class SimpleUser(BaseModel):
+    name: str
+    email: str
+
+
+@app.post("/users")
+def create_user(user: SimpleUser):
+
+    return {
+        "message": "User created",
+        "user": user,
+    }
+
+
+# ============================================================
+# EXERCISE 06 — PYDANTIC REQUEST VALIDATION
+# ============================================================
+#
+# Pydantic validates incoming JSON data.
+#
+# ============================================================
+
+class UserCreate(BaseModel):
+    name: str = Field(..., min_length=2)
+    email: EmailStr
+    age: int = Field(..., ge=18, le=100)
+
+
+@app.post("/validated-users")
+def create_validated_user(user: UserCreate):
+
+    return {
+        "message": "Validated user created",
+        "user": user,
+    }
+
+# ============================================================
+# EXERCISE 07 — RESPONSE MODEL
+# ============================================================
+#
+# Response models control what the API returns.
+#
+# ============================================================
+
+class UserResponse(BaseModel):
+    id: int
+    name: str
+    email: EmailStr
+
+
+@app.get("/user-response", response_model=UserResponse)
+def get_user_response():
+
+    return {
+        "id": 1,
+        "name": "Jagan",
+        "email": "jagan@example.com",
+        "password": "secret-password",
+    }
+
+# ============================================================
+# EXERCISE 08 — HTTP STATUS CODES
+# ============================================================
+#
+# Common status codes:
+#
+# 200 = OK
+# 201 = Created
+# 204 = No Content
+# 400 = Bad Request
+# 401 = Unauthorized
+# 403 = Forbidden
+# 404 = Not Found
+# 422 = Validation Error
+# 500 = Internal Server Error
+#
+# ============================================================
+
+
+@app.post(
+    "/status-users",
+    status_code=status.HTTP_201_CREATED
+)
+def create_status_user(user: SimpleUser):
+
+    return {
+        "message": "User successfully created",
+        "user": user,
+    }
+
+# ============================================================
+# EXERCISE 09 — ERROR HANDLING
+# ============================================================
+
+@app.get("/error-users/{user_id}")
+def error_handling(user_id: int):
+
+    if user_id != 1:
+
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
+        )
+
+    return {
+        "id": 1,
+        "name": "Jagan",
+    }
+
+# ============================================================
+# EXERCISE 10 — CRUD API
+# ============================================================
+#
+# We first use an in-memory list.
+#
+# Later this can be replaced with:
+#
+# SQLite
+# PostgreSQL
+# Azure SQL
+#
+# ============================================================
+
+customers = []
+
+class Customer(BaseModel):
+    name: str
+    email: EmailStr
+    city: str
+
+@app.post(
+    "/customers",
+    status_code=status.HTTP_201_CREATED
+)
+def create_customer(customer: Customer):
+
+    new_customer = {
+        "id": len(customers) + 1,
+        **customer.model_dump(),
+    }
+
+    customers.append(new_customer)
+
+    return new_customer
+
+
+@app.get("/customers")
+def get_customers():
+
+    return {
+        "customers": customers
+    }
+
+
+@app.get("/customers/{customer_id}")
+def get_customer(customer_id: int):
+
+    for customer in customers:
+
+        if customer["id"] == customer_id:
+            return customer
+
+    raise HTTPException(
+        status_code=404,
+        detail="Customer not found",
+    )
+
+
+@app.put("/customers/{customer_id}")
+def update_customer(
+    customer_id: int,
+    customer: Customer,
+):
+
+    for index, existing_customer in enumerate(customers):
+
+        if existing_customer["id"] == customer_id:
+
+            updated_customer = {
+                "id": customer_id,
+                **customer.model_dump(),
+            }
+
+            customers[index] = updated_customer
+
+            return updated_customer
+
+    raise HTTPException(
+        status_code=404,
+        detail="Customer not found",
+    )
+
+
+@app.delete("/customers/{customer_id}")
+def delete_customer(customer_id: int):
+
+    for index, customer in enumerate(customers):
+
+        if customer["id"] == customer_id:
+
+            customers.pop(index)
+
+            return {
+                "message": "Customer deleted"
+            }
+
+    raise HTTPException(
+        status_code=404,
+        detail="Customer not found",
+    )
+
+
+# ============================================================
+# EXERCISE 11 — QUERY VALIDATION
+# ============================================================
+#
+# Query parameter:
+#
+# GET /products?limit=10
+#
+# ============================================================
+
+
+@app.get("/products")
+def get_products(
+    limit: int = Query(
+        default=10,
+        ge=1,
+        le=100,
+    )
+):
+
+    return {
+        "limit": limit,
+        "message": "Product list"
+    }
+
+
+# ============================================================
+# EXERCISE 12 — PATH VALIDATION
+# ============================================================
+
+
+@app.get("/validated-products/{product_id}")
+def get_product(
+    product_id: int = Path(
+        ...,
+        ge=1
+    )
+):
+
+    return {
+        "product_id": product_id
+    }
+
+
+# ============================================================
+# EXERCISE 13 — DEPENDENCY INJECTION
+# ============================================================
+#
+# Depends() allows common logic to be reused.
+#
+# ============================================================
+
+
+def get_current_demo_user():
+
+    return {
+        "username": "jagan",
+        "role": "admin",
+    }
+
+
+@app.get("/profile")
+def profile(
+    user=Depends(get_current_demo_user)
+):
+
+    return {
+        "user": user
+    }
+
+
+# ============================================================
+# EXERCISE 14 — ASYNC API
+# ============================================================
+#
+# async def is useful for I/O-bound operations.
+#
+# Examples:
+#
+# API calls
+# Database calls
+# File operations
+# LLM calls
+#
+# ============================================================
+
+
+@app.get("/async")
+async def async_api():
+
+    return {
+        "message": "Async API executed"
+    }
+
+
+# ============================================================
+# EXERCISE 15 — AUTHENTICATION CONCEPT
+# ============================================================
+#
+# Authentication:
+#     Who are you?
+#
+# Authorization:
+#     What are you allowed to do?
+#
+# Example:
+#
+# username/password
+#        ↓
+# authentication
+#        ↓
+# access token
+#        ↓
+# protected API
+#
+# ============================================================
+
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+
+@app.post("/login-demo")
+def login_demo(data: LoginRequest):
+
+    if (
+        data.username == "jagan"
+        and data.password == "python123"
+    ):
+
+        return {
+            "message": "Authentication successful"
+        }
+
+    raise HTTPException(
+        status_code=401,
+        detail="Invalid username or password",
+    )
+
+
+# ============================================================
+# EXERCISE 16 — OAUTH2 + JWT SETUP
+# ============================================================
+#
+# JWT = JSON Web Token
+#
+# Token structure:
+#
+# Header.Payload.Signature
+#
+# ============================================================
+
+
+SECRET_KEY = "change-this-secret-key"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+
+oauth2_scheme = OAuth2PasswordBearer(
+    tokenUrl="login"
+)
+
+
+# ============================================================
+# EXERCISE 17 — JWT CREATE TOKEN
+# ============================================================
+
+
+def create_access_token(
+    data: dict,
+    expires_delta: Optional[timedelta] = None,
+):
+
+    to_encode = data.copy()
+
+    if expires_delta:
+
+        expire = (
+            datetime.now(timezone.utc)
+            + expires_delta
+        )
+
+    else:
+
+        expire = (
+            datetime.now(timezone.utc)
+            + timedelta(minutes=15)
+        )
+
+    to_encode.update({
+        "exp": expire
+    })
+
+    encoded_jwt = jwt.encode(
+        to_encode,
+        SECRET_KEY,
+        algorithm=ALGORITHM,
+    )
+
+    return encoded_jwt
+
+
+# ============================================================
+# EXERCISE 18 — LOGIN AND JWT
+# ============================================================
+
+
+class LoginData(BaseModel):
+    username: str
+    password: str
+
+
+@app.post("/login")
+def login(data: LoginData):
+
+    # Demo credentials only.
+    #
+    # Production applications should:
+    #
+    # - hash passwords
+    # - use a database
+    # - use environment variables/secrets
+    # - never hard-code passwords
+
+    if (
+        data.username != "jagan"
+        or data.password != "python123"
+    ):
+
+        raise HTTPException(
+            status_code=401,
+            detail="Incorrect username or password",
+        )
+
+    access_token = create_access_token(
+        data={
+            "sub": data.username
+        },
+        expires_delta=timedelta(
+            minutes=ACCESS_TOKEN_EXPIRE_MINUTES
+        ),
+    )
+
+    return {
+        "access_token": access_token,
+        "token_type": "bearer",
+    }
+
+
+# ============================================================
+# EXERCISE 19 — PROTECTED API
+# ============================================================
+
+
+def get_current_user(
+    token: str = Depends(oauth2_scheme)
+):
+
+    credentials_exception = HTTPException(
+        status_code=401,
+        detail="Could not validate credentials",
+        headers={
+            "WWW-Authenticate": "Bearer"
+        },
+    )
+
+    try:
+
+        payload = jwt.decode(
+            token,
+            SECRET_KEY,
+            algorithms=[ALGORITHM],
+        )
+
+        username = payload.get("sub")
+
+        if username is None:
+
+            raise credentials_exception
+
+        return {
+            "username": username
+        }
+
+    except JWTError:
+
+        raise credentials_exception
+
+
+@app.get("/protected-profile")
+def protected_profile(
+    current_user=Depends(get_current_user)
+):
+
+    return {
+        "message": "You accessed a protected API",
+        "user": current_user,
+    }
+
+
+# ============================================================
+# EXERCISE 20 — API VALIDATION FOR CHAT
+# ============================================================
+#
+# AI Chat Request
+#
+# POST /chat
+#
+# Request:
+#
+# {
+#     "message": "What is Python?",
+#     "user_id": 101
+# }
+#
+# ============================================================
+
+
+class ChatRequest(BaseModel):
+
+    message: str = Field(
+        ...,
+        min_length=1,
+        max_length=2000,
+    )
+
+    user_id: int = Field(
+        ...,
+        gt=0,
+    )
+
+
+class ChatResponse(BaseModel):
+
+    user_id: int
+    message: str
+    response: str
+
+
+@app.post(
+    "/chat",
+    response_model=ChatResponse
+)
+async def chat(request: ChatRequest):
+
+    # Mock AI response.
+    #
+    # Later replace this with:
+    #
+    # Azure OpenAI
+    # OpenAI
+    # another LLM
+    #
+    ai_response = (
+        f"You asked: {request.message}"
+    )
+
+    return {
+        "user_id": request.user_id,
+        "message": request.message,
+        "response": ai_response,
+    }
+
+
+# ============================================================
+# EXERCISE 21 — DOCUMENT UPLOAD
+# ============================================================
+#
+# POST /documents
+#
+# Requires:
+#
+# pip install python-multipart
+#
+# ============================================================
+
+
+documents = []
+
+
+@app.post("/documents")
+async def upload_document(
+    file: UploadFile = File(...)
+):
+
+    document_id = (
+        f"DOC{len(documents) + 1:03d}"
+    )
+
+    document = {
+        "document_id": document_id,
+        "filename": file.filename,
+        "content_type": file.content_type,
+        "status": "uploaded",
+    }
+
+    documents.append(document)
+
+    return document
+
+
+# ============================================================
+# EXERCISE 22 — GET DOCUMENTS
+# ============================================================
+
+
+@app.get("/documents")
+def get_documents():
+
+    return {
+        "count": len(documents),
+        "documents": documents,
+    }
+
+
+# ============================================================
+# EXERCISE 23 — POST /ask
+# ============================================================
+#
+# This is the beginning of an AI/RAG API.
+#
+# POST /ask
+#
+# Request:
+#
+# {
+#     "question": "What is the leave policy?"
+# }
+#
+# Future architecture:
+#
+# Question
+#    ↓
+# Embedding
+#    ↓
+# Vector Database
+#    ↓
+# Retrieval
+#    ↓
+# LLM
+#    ↓
+# Answer
+#
+# ============================================================
+
+
+class AskRequest(BaseModel):
+
+    question: str = Field(
+        ...,
+        min_length=1,
+        max_length=2000,
+    )
+
+
+class AskResponse(BaseModel):
+
+    question: str
+    answer: str
+    sources: list[str]
+
+
+@app.post(
+    "/ask",
+    response_model=AskResponse
+)
+async def ask_question(request: AskRequest):
+
+    # Mock answer.
+    #
+    # Later connect this API to:
+    #
+    # Embeddings
+    # Vector DB
+    # RAG
+    # LLM
+
+    answer = (
+        "This is a mock answer. "
+        "Later this endpoint will use RAG and an LLM."
+    )
+
+    return {
+        "question": request.question,
+        "answer": answer,
+        "sources": [],
+    }
+
+
+# ============================================================
+# EXERCISE 24 — OPENAPI / SWAGGER / REDOC
+# ============================================================
+#
+# FastAPI automatically generates:
+#
+# Swagger:
+#     /docs
+#
+# ReDoc:
+#     /redoc
+#
+# OpenAPI JSON:
+#     /openapi.json
+#
+# Test all APIs from Swagger UI.
+#
+# ============================================================
+
+
+@app.get("/api-info")
+def api_info():
+
+    return {
+        "swagger": "/docs",
+        "redoc": "/redoc",
+        "openapi": "/openapi.json",
+    }
+
+
+# ============================================================
+# EXERCISE 25 — FINAL AI BACKEND API
+# ============================================================
+#
+# FINAL API ARCHITECTURE
+#
+#                 CLIENT
+#                    │
+#                    ▼
+#               FASTAPI
+#                    │
+#       ┌────────────┼────────────┐
+#       │            │            │
+#       ▼            ▼            ▼
+#     /chat      /documents     /ask
+#       │            │            │
+#       ▼            ▼            ▼
+#    Chat Logic   File Upload   RAG Logic
+#                                  │
+#                                  ▼
+#                            Vector Database
+#                                  │
+#                                  ▼
+#                                 LLM
+#
+# Authentication:
+#
+#       /login
+#          │
+#          ▼
+#         JWT
+#          │
+#          ▼
+#    Protected APIs
+#
+# ============================================================
+
+
+@app.get("/health")
+def health_check():
+
+    return {
+        "status": "healthy",
+        "service": "AI Backend API",
+        "version": "1.0.0",
+    }
+
+
+# ============================================================
+# FINAL CHECKLIST
+# ============================================================
+#
+# [ ] REST API fundamentals
+# [ ] HTTP methods
+# [ ] HTTP status codes
+# [ ] GET
+# [ ] POST
+# [ ] PUT
+# [ ] DELETE
+# [ ] Path parameters
+# [ ] Query parameters
+# [ ] JSON request bodies
+# [ ] Pydantic
+# [ ] Request validation
+# [ ] Response models
+# [ ] CRUD
+# [ ] HTTPException
+# [ ] Dependency Injection
+# [ ] async / await
+# [ ] Authentication
+# [ ] Authorization
+# [ ] OAuth2 concepts
+# [ ] JWT
+# [ ] Protected APIs
+# [ ] File uploads
+# [ ] POST /chat
+# [ ] POST /documents
+# [ ] GET /documents
+# [ ] POST /ask
+# [ ] Swagger
+# [ ] OpenAPI
+# [ ] ReDoc
+# [ ] Postman testing
+#
+# ============================================================
+# RUN THE APPLICATION
+# ============================================================
+#
+# uvicorn main:app --reload
+#
+# Open:
+#
+# http://127.0.0.1:8000
+#
+# Swagger:
+#
+# http://127.0.0.1:8000/docs
+#
+# ReDoc:
+#
+# http://127.0.0.1:8000/redoc
+#
+# ============================================================

@@ -4,7 +4,7 @@
 
 # 1. Nested age and ID check
 
-age = 25
+age = 18
 has_id = True
 
 if age >= 18:
@@ -57,3 +57,7 @@ if python_score >= 60:
         print("Improve SQL")
 else:
     print("Improve Python")
+    
+# ============================================================
+# END
+# ============================================================

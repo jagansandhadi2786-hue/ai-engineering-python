@@ -34,7 +34,7 @@ else:
 username = "admin"
 password = "1234"
 
-if username == "admin" and password == "1234":
+if username == "admin" and password == "123":
     print("Login successful")
 else:
     print("Invalid login")
@@ -52,7 +52,11 @@ else:
 
 temperature = 35
 
-if temperature > 30:
+if temperature  <30:
     print("Hot")
 else:
     print("Normal")
+
+# ============================================================
+# END
+# ============================================================

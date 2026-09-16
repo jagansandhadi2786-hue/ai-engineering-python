@@ -352,7 +352,6 @@ print("Name:", customer["name"])
 print("Country:", customer["country"])
 print("Skills:", customer["skills"])
 
-
 # ============================================================
 # END OF FILE EXERCISES
 # ============================================================

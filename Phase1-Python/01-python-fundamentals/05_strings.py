@@ -53,3 +53,7 @@ print("Course:", course)
 print("Length:", len(course))
 print("First character:", course[0])
 print("Last character:", course[-1])
+
+# ============================================================
+# END
+# ============================================================

@@ -1,4 +1,6 @@
-
+# ============================================================
+# PYTHON FUNDAMENTALS - 03_Variables
+# ============================================================
 # Personal Information
 name = "Jagan"
 age = 30
@@ -46,3 +48,7 @@ full_name = first_name + " " + last_name
 print("first_name:", first_name)
 print("last_name:", last_name)
 print("full_name:", full_name)
+
+# ============================================================
+# END
+# ============================================================

@@ -36,29 +36,27 @@
 # 01. CLASSES AND OBJECTS
 # ============================================================
 
-class Person:
+class BasicPerson:
     pass
 
-
-person1 = Person()
-person2 = Person()
+person1 = BasicPerson()
+person2 = BasicPerson()
 
 print(person1)
 print(person2)
-
 
 # ============================================================
 # 02. __init__() AND self
 # ============================================================
 
-class Student:
+class InitStudent:
 
     def __init__(self, name, age):
         self.name = name
         self.age = age
 
 
-student1 = Student("Jagan", 30)
+student1 = InitStudent("Jagan", 30)
 
 print(student1.name)
 print(student1.age)
@@ -68,7 +66,7 @@ print(student1.age)
 # 03. ATTRIBUTES
 # ============================================================
 
-class Employee:
+class AttributeEmployee:
 
     def __init__(self, name, role, experience):
         self.name = name
@@ -76,7 +74,7 @@ class Employee:
         self.experience = experience
 
 
-employee1 = Employee(
+employee1 = AttributeEmployee(
     "Jagan",
     "SAP CPI Developer",
     6
@@ -90,7 +88,7 @@ print(employee1.experience)
 # 04. METHODS
 # ============================================================
 
-class Student:
+class MethodStudent:
 
     def __init__(self, name, course):
         self.name = name
@@ -103,7 +101,7 @@ class Student:
         print(self.name, "is learning", self.course)
 
 
-student1 = Student("Jagan", "Python")
+student1 = MethodStudent("Jagan", "Python")
 
 student1.introduce()
 student1.study()
@@ -112,7 +110,7 @@ student1.study()
 # 05. MULTIPLE OBJECTS
 # ============================================================
 
-class Car:
+class MultipleCar:
 
     def __init__(self, brand, model, year):
         self.brand = brand
@@ -126,11 +124,11 @@ class Car:
         print("--------------------")
 
 
-car1 = Car("Toyota", "Corolla", 2024)
-car2 = Car("BMW", "X5", 2025)
-car3 = Car("Tesla", "Model 3", 2025)
-car4 = Car("Audi", "A4", 2024)
-car5 = Car("Honda", "City", 2023)
+car1 = MultipleCar("Toyota", "Corolla", 2024)
+car2 = MultipleCar("BMW", "X5", 2025)
+car3 = MultipleCar("Tesla", "Model 3", 2025)
+car4 = MultipleCar("Audi", "A4", 2024)
+car5 = MultipleCar("Honda", "City", 2023)
 
 car1.display_details()
 car2.display_details()
@@ -142,7 +140,7 @@ car5.display_details()
 # 06. CLASS VARIABLES
 # ============================================================
 
-class Employee:
+class ClassVariableEmployee:
 
     company = "TechCorp"
 
@@ -155,11 +153,11 @@ class Employee:
         print("--------------------")
 
 
-employee1 = Employee("Jagan")
-employee2 = Employee("Ravi")
-employee3 = Employee("Anu")
-employee4 = Employee("Rahul")
-employee5 = Employee("Priya")
+employee1 = ClassVariableEmployee("Jagan")
+employee2 = ClassVariableEmployee("Ravi")
+employee3 = ClassVariableEmployee("Anu")
+employee4 = ClassVariableEmployee("Rahul")
+employee5 = ClassVariableEmployee("Priya")
 
 employee1.display()
 employee2.display()
@@ -278,13 +276,13 @@ bike.stop()
 # 10. super()
 # ============================================================
 
-class Employee:
+class superEmployee:
 
     def __init__(self, name):
         self.name = name
 
 
-class Developer(Employee):
+class superDeveloper(superEmployee):
 
     def __init__(self, name, language):
         super().__init__(name)
@@ -296,9 +294,9 @@ class Developer(Employee):
         print("--------------------")
 
 
-developer1 = Developer("Jagan", "Python")
-developer2 = Developer("Ravi", "Java")
-developer3 = Developer("Anu", "JavaScript")
+developer1 = superDeveloper("Jagan", "Python")
+developer2 = superDeveloper("Ravi", "Java")
+developer3 = superDeveloper("Anu", "JavaScript")
 
 developer1.display()
 developer2.display()
@@ -314,21 +312,21 @@ class Animal:
         print("Animal makes a sound")
 
 
-class Dog(Animal):
+class OverrideDog(Animal):
 
     def sound(self):
         print("Dog barks")
 
 
-class Cat(Animal):
+class OverrideCat(Animal):
 
     def sound(self):
         print("Cat meows")
 
 
 animal = Animal()
-dog = Dog()
-cat = Cat()
+dog = OverrideDog()
+cat = OverrideCat()
 
 animal.sound()
 dog.sound()

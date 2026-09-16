@@ -1,8 +1,7 @@
 # ============================================================
 # PYTHON FUNDAMENTALS - 03_INPUT
 # ============================================================
-# Topics:
-# 03 - INPUT
+# Topics:03 - INPUT
 #
 # Practice:
 # - User input
@@ -28,7 +27,7 @@ print("Hello", name)
 
 
 # ------------------------------------------------------------
-# Exercise 2 - Get user's city
+# Exercise 2 - Get user's cityJ
 # ------------------------------------------------------------
 
 city = input("Enter your city: ")
@@ -70,7 +69,6 @@ print("Name:", name)
 print("Age:", age)
 print("City:", city)
 print("Country:", country)
-
 
 # ============================================================
 # END OF PRACTICE FILE

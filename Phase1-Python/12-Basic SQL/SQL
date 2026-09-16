@@ -857,7 +857,6 @@ ON customers.customer_id = orders.customer_id
 for row in cursor.fetchall():
     print(row)
 
-
 # ------------------------------------------------------------
 # 25.4 - Total Sales
 # ------------------------------------------------------------

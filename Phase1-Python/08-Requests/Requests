@@ -5,11 +5,9 @@
 #
 # 25 HANDS-ON EXERCISES
 #
-# Install:
-#     pip install requests
+# Install:pip install requests
 #
-# Practice API:
-#     https://jsonplaceholder.typicode.com
+# Practice API:https://jsonplaceholder.typicode.com
 #
 # ============================================================
 #

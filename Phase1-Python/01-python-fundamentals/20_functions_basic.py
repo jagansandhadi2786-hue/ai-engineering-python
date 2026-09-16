@@ -74,3 +74,7 @@ def create_model_config(model, temperature):
 config = create_model_config("gpt-model", 0.7)
 
 print(config)
+
+# ============================================================
+# END
+# ============================================================
