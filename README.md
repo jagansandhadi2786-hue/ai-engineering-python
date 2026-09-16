@@ -1,4 +1,4 @@
-# 🚀 AI Engineering Roadmap — Summary
+# 🚀 AI Engineering — Summary
 
 This repository documents my **hands-on journey from Python development to Enterprise AI Engineering**, with a focus on building real-world, production-oriented AI applications.
 
